@@ -1,0 +1,92 @@
+2026-08-05 14:13:27,216 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 14:13:27,220 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 14:13:27,220 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-05 14:13:31,416 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-05 14:13:31,417 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 14:14:28,049 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 56.63s.
+2026-08-05 14:15:13,036 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 14:15:13,039 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 14:15:13,040 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-05 14:15:16,029 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-05 14:15:25,361 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 14:17:14,728 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 109.37s.
+2026-08-05 14:25:11,414 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 14:25:11,415 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 14:25:11,415 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-05 14:25:16,584 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-05 14:25:16,584 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 14:27:20,565 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 123.98s.
+2026-08-05 14:27:20,569 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 14:38:14,515 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 653.95s.
+2026-08-05 14:39:49,463 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 14:39:49,466 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 14:39:49,466 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-05 14:39:53,371 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-05 14:40:07,583 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 14:41:49,642 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 102.06s.
+2026-08-05 15:00:49,860 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 15:00:49,866 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 15:00:49,866 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-05 15:01:02,108 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-05 15:01:02,150 - falcon_ai_services.intelligence.session - INFO - Created new session: 1223df39-2241-4266-8c17-8de14ad24573
+2026-08-05 15:01:02,150 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'chat' for session 1223df39-2241-4266-8c17-8de14ad24573
+2026-08-05 15:01:02,151 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: tiny
+2026-08-05 15:01:02,151 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-05 15:01:02,151 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 1223df39-2241-4266-8c17-8de14ad24573
+2026-08-05 15:01:02,152 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 15:02:04,080 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 15:02:04,081 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 15:02:04,081 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-05 15:02:09,001 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-05 15:02:09,001 - falcon_ai_services.intelligence.session - INFO - Created new session: 0977d6b3-a785-455e-bb1c-8dff4414b958
+2026-08-05 15:02:09,001 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'chat' for session 0977d6b3-a785-455e-bb1c-8dff4414b958
+2026-08-05 15:02:09,002 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: tiny
+2026-08-05 15:02:09,002 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-05 15:02:09,002 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 0977d6b3-a785-455e-bb1c-8dff4414b958
+2026-08-05 15:02:09,002 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 15:02:26,867 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 17.86s.
+2026-08-05 15:02:26,875 - falcon_ai_services.intelligence.session - INFO - Created new session: 73c39a47-5ad0-45dc-8878-acc1f482cffd
+2026-08-05 15:02:26,875 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session 73c39a47-5ad0-45dc-8878-acc1f482cffd
+2026-08-05 15:02:26,876 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: short
+2026-08-05 15:02:26,876 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-05 15:02:26,876 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 73c39a47-5ad0-45dc-8878-acc1f482cffd
+2026-08-05 15:02:26,876 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 15:02:55,157 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 28.28s.
+2026-08-05 15:02:55,157 - falcon_ai_services.intelligence.session - INFO - Created new session: 69a61604-e80a-4ef3-8004-945d4084c235
+2026-08-05 15:02:55,157 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'coding' for session 69a61604-e80a-4ef3-8004-945d4084c235
+2026-08-05 15:02:55,157 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: detailed
+2026-08-05 15:02:55,157 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-05 15:02:55,157 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 69a61604-e80a-4ef3-8004-945d4084c235
+2026-08-05 15:02:55,157 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 15:06:01,757 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 186.60s.
+2026-08-05 15:06:01,758 - falcon_ai_services.intelligence.session - INFO - Created new session: b6413d2a-78a6-4c1a-b700-0fa79a58ae92
+2026-08-05 15:06:01,758 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session b6413d2a-78a6-4c1a-b700-0fa79a58ae92
+2026-08-05 15:06:01,760 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: under_50_words
+2026-08-05 15:06:01,760 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-05 15:06:01,760 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session b6413d2a-78a6-4c1a-b700-0fa79a58ae92
+2026-08-05 15:06:01,760 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 15:06:16,666 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 14.91s.
+2026-08-05 15:06:16,666 - falcon_ai_services.intelligence.session - INFO - Created new session: 8eb4224b-4cd4-446f-9517-ccdf58f8b2fb
+2026-08-05 15:06:16,667 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session 8eb4224b-4cd4-446f-9517-ccdf58f8b2fb
+2026-08-05 15:06:16,667 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: short
+2026-08-05 15:06:16,667 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-05 15:06:16,667 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 8eb4224b-4cd4-446f-9517-ccdf58f8b2fb
+2026-08-05 15:06:16,667 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 15:06:24,520 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 7.85s.
+2026-08-05 21:21:46,170 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 21:21:46,171 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 21:21:46,172 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-05 21:21:51,269 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-05 21:22:19,955 - falcon_ai_services.intelligence.session - INFO - Created explicit session: dev_console_session
+2026-08-05 21:22:19,955 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session dev_console_session
+2026-08-05 21:22:19,955 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: short
+2026-08-05 21:22:19,955 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-05 21:22:19,955 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session dev_console_session
+2026-08-05 21:22:19,955 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 21:22:35,300 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 15.34s.
+2026-08-05 21:24:16,469 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session dev_console_session
+2026-08-05 21:24:16,471 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: short
+2026-08-05 21:24:16,471 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 4 messages.
+2026-08-05 21:24:16,471 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session dev_console_session
+2026-08-05 21:24:16,471 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-05 21:24:42,294 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 25.82s.

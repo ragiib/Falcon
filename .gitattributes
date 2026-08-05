@@ -1,0 +1,1 @@
+models/stt/faster-whisper-large-v3/model.bin !text !filter !merge !diff

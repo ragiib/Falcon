@@ -1,0 +1,6 @@
+# AI Services dependencies
+llama-cpp-python>=0.2.77
+fastapi
+uvicorn
+pydantic
+psutil
