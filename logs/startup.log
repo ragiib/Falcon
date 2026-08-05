@@ -1,0 +1,108 @@
+[2026-08-05 22:58:16] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 22:58:16] [FAILURE] Flutter project not found. No pubspec.yaml was detected in the project root or subdirectories.
+[2026-08-05 23:08:17] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:08:18] [FAILURE] Unhandled error during launcher execution:
+Traceback (most recent call last):
+[2026-08-05 23:09:44] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:09:45] [FAILURE] Missing dependency:
+fastapi
+[2026-08-05 23:10:30] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:10:34] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://localhost:8000
+Health Endpoint:       http://localhost:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:12:34] [FAILURE] Health check timeout. Backend failed to respond at http://localhost:8000/api/v1/health.
+[2026-08-05 23:13:53] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:13:55] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://localhost:8000
+Health Endpoint:       http://localhost:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:19:08] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:19:10] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://localhost:8000
+Health Endpoint:       http://localhost:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:19:57] [FAILURE] Health check timeout. Backend failed to respond at http://localhost:8000/api/v1/health.
+[2026-08-05 23:23:25] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:23:27] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:24:38] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:24:40] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:24:54] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: Building...ymlink support.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Please enable Developer Mode in your system settings. Run
+  start ms-settings:developers
+to open settings.
+[2026-08-05 23:26:24] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:26:27] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:26:43] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: Building...ymlink support.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Please enable Developer Mode in your system settings. Run
+  start ms-settings:developers
+to open settings.

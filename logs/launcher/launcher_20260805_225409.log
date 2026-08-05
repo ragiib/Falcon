@@ -1,0 +1,18 @@
+[2026-08-05 22:54:09] [INFO] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 22:54:09] [INFO] Searching for Flutter project (pubspec.yaml)...
+[2026-08-05 22:54:09] [WARN] No pubspec.yaml found. Proceeding without UI or UI will be expected later.
+[2026-08-05 22:54:09] [INFO] Searching for Backend project (api\app.py)...
+[2026-08-05 22:54:09] [SUCCESS] Found Backend project at: C:\falcon
+[2026-08-05 22:54:09] [INFO] Verifying Python environment...
+[2026-08-05 22:54:09] [INFO] Python Interpreter:
+python
+
+Python Version:
+Python 3.11.4
+
+Environment:
+System Python
+
+Working Directory:
+C:\falcon
+[2026-08-05 22:54:09] [INFO] Verifying Python dependencies...

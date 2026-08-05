@@ -2,6 +2,7 @@
 API application instance and startup/shutdown events.
 """
 import uvicorn
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from config import settings
@@ -27,6 +28,23 @@ from core.intelligence.session import SessionManager
 
 logger = get_logger("api.app")
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Starting up API server...")
+    # Initialize the provider (lazily loads the model)
+    ProviderFactory.initialize()
+    logger.info("API server startup complete.")
+    
+    yield
+    
+    logger.info("Shutting down API server...")
+    # Gracefully close sessions
+    SessionManager._sessions.clear()
+    
+    # We leave Provider unloading to OS / Python GC as llama_cpp doesn't have explicit explicit unload
+    # But we log it.
+    logger.info("API server shutdown complete.")
+
 def create_app() -> FastAPI:
     """Creates and configures the FastAPI application."""
     
@@ -36,7 +54,8 @@ def create_app() -> FastAPI:
         version="1.0.0",
         docs_url="/api/v1/docs",
         redoc_url="/api/v1/redoc",
-        openapi_url="/api/v1/openapi.json"
+        openapi_url="/api/v1/openapi.json",
+        lifespan=lifespan
     )
     
     # 1. Custom Exception Handlers
@@ -66,24 +85,6 @@ def create_app() -> FastAPI:
     app.include_router(metrics.router, prefix=api_v1_prefix)
     app.include_router(ws.router, prefix=api_v1_prefix)
     
-    # 5. Lifecycle Events
-    @app.on_event("startup")
-    async def startup_event():
-        logger.info("Starting up API server...")
-        # Initialize the provider (lazily loads the model)
-        ProviderFactory.initialize()
-        logger.info("API server startup complete.")
-        
-    @app.on_event("shutdown")
-    async def shutdown_event():
-        logger.info("Shutting down API server...")
-        # Gracefully close sessions
-        SessionManager._sessions.clear()
-        
-        # We leave Provider unloading to OS / Python GC as llama_cpp doesn't have explicit explicit unload
-        # But we log it.
-        logger.info("API server shutdown complete.")
-        
     return app
 
 app = create_app()

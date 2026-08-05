@@ -90,3 +90,43 @@
 2026-08-05 21:24:16,471 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session dev_console_session
 2026-08-05 21:24:16,471 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
 2026-08-05 21:24:42,294 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 25.82s.
+2026-08-05 23:10:35,626 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:10:35,627 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:10:35,631 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:10:35,631 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:12:10,740 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 887fb12f-9b6d-45ea-b2ff-99aef89b6355)
+2026-08-05 23:12:10,749 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 9.26ms (ID: 887fb12f-9b6d-45ea-b2ff-99aef89b6355)
+2026-08-05 23:13:57,348 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:13:57,348 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:13:57,349 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:13:57,349 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:18:01,553 - falcon_ai_services.api.app - INFO - Shutting down API server...
+2026-08-05 23:18:01,553 - falcon_ai_services.api.app - INFO - API server shutdown complete.
+2026-08-05 23:19:11,743 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:19:11,743 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:19:11,744 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:19:11,744 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:21:44,744 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 55bfb5ce-9acd-48ab-b83d-bc5f0c0469a2)
+2026-08-05 23:21:44,753 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 9.60ms (ID: 55bfb5ce-9acd-48ab-b83d-bc5f0c0469a2)
+2026-08-05 23:22:32,652 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 4b384dd9-1783-4911-bc25-092150f56b0d)
+2026-08-05 23:22:32,652 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.00ms (ID: 4b384dd9-1783-4911-bc25-092150f56b0d)
+2026-08-05 23:22:42,363 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: dc562078-1043-4134-8b8d-a3563f3ef348)
+2026-08-05 23:22:42,364 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.84ms (ID: dc562078-1043-4134-8b8d-a3563f3ef348)
+2026-08-05 23:23:28,814 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:23:28,814 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:23:28,815 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:23:28,815 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:23:29,039 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: ad0d4473-987e-492b-890c-647bcecfe01a)
+2026-08-05 23:23:29,045 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 6.00ms (ID: ad0d4473-987e-492b-890c-647bcecfe01a)
+2026-08-05 23:24:41,736 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:24:41,737 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:24:41,737 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:24:41,737 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:24:42,016 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 0616ee78-dae6-4931-8ec0-df6da29a140c)
+2026-08-05 23:24:42,022 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 6.16ms (ID: 0616ee78-dae6-4931-8ec0-df6da29a140c)
+2026-08-05 23:26:29,042 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:26:29,043 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:26:29,043 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:26:29,044 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:26:31,509 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 16868fa5-f7df-497d-8cbf-0408381a635f)
+2026-08-05 23:26:31,518 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 8.27ms (ID: 16868fa5-f7df-497d-8cbf-0408381a635f)
