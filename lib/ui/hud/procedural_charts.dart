@@ -1,8 +1,9 @@
+import 'dart:ui';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 
-/// Technical HUD Container with thin glowing cyan borders, corner brackets & tech ticks
+/// Technical HUD Container with thin glowing cyan borders, corner brackets & BackdropFilter glassmorphism
 class HudBox extends StatelessWidget {
   final Widget child;
   final String? title;
@@ -27,55 +28,116 @@ class HudBox extends StatelessWidget {
       width: width,
       height: height,
       margin: const EdgeInsets.all(2.0),
-      child: CustomPaint(
-        painter: _HudBoxPainter(),
-        child: Padding(
-          padding: padding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (title != null) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        title!.toUpperCase(),
-                        style: const TextStyle(
-                          color: AppColors.cyanGlow,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.5,
-                          fontFamily: 'Share Tech Mono',
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    if (subtitle != null) ...[
-                      const SizedBox(width: 8),
-                      Flexible(
-                        child: Text(
-                          subtitle!.toUpperCase(),
-                          style: const TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: 8,
-                            letterSpacing: 1.0,
-                            fontFamily: 'Share Tech Mono',
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+          child: CustomPaint(
+            painter: _HudBoxPainter(),
+            child: Padding(
+              padding: padding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (title != null) ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _BlinkingLedIndicator(),
+                              const SizedBox(width: 4),
+                              Flexible(
+                                child: Text(
+                                  title!.toUpperCase(),
+                                  style: const TextStyle(
+                                    color: AppColors.cyanGlow,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1.5,
+                                    fontFamily: 'Share Tech Mono',
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
-                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ],
+                        if (subtitle != null) ...[
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Text(
+                              subtitle!.toUpperCase(),
+                              style: const TextStyle(
+                                color: AppColors.textSecondary,
+                                fontSize: 8,
+                                letterSpacing: 1.0,
+                                fontFamily: 'Share Tech Mono',
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                    const SizedBox(height: 4),
                   ],
-                ),
-                const SizedBox(height: 4),
-              ],
-              Flexible(child: child),
-            ],
+                  Flexible(child: child),
+                ],
+              ),
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _BlinkingLedIndicator extends StatefulWidget {
+  @override
+  State<_BlinkingLedIndicator> createState() => _BlinkingLedIndicatorState();
+}
+
+class _BlinkingLedIndicatorState extends State<_BlinkingLedIndicator> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Container(
+          width: 5,
+          height: 5,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.cyanGlow.withOpacity(0.3 + (_controller.value * 0.7)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.cyanGlow.withOpacity(_controller.value),
+                blurRadius: 4,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -122,6 +184,90 @@ class _HudBoxPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+/// Animated Radar Sweep Widget
+class RadarSweepWidget extends StatefulWidget {
+  final double size;
+  const RadarSweepWidget({Key? key, this.size = 80}) : super(key: key);
+
+  @override
+  State<RadarSweepWidget> createState() => _RadarSweepWidgetState();
+}
+
+class _RadarSweepWidgetState extends State<RadarSweepWidget> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return CustomPaint(
+          size: Size(widget.size, widget.size),
+          painter: _RadarSweepPainter(angle: _controller.value * 2 * math.pi),
+        );
+      },
+    );
+  }
+}
+
+class _RadarSweepPainter extends CustomPainter {
+  final double angle;
+  _RadarSweepPainter({required this.angle});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final r = size.width / 2;
+
+    final circlePaint = Paint()
+      ..color = AppColors.cyanGlow.withOpacity(0.3)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0;
+
+    canvas.drawCircle(center, r * 0.33, circlePaint);
+    canvas.drawCircle(center, r * 0.66, circlePaint);
+    canvas.drawCircle(center, r, circlePaint);
+
+    // Crosshairs
+    canvas.drawLine(Offset(center.dx - r, center.dy), Offset(center.dx + r, center.dy), circlePaint);
+    canvas.drawLine(Offset(center.dx, center.dy - r), Offset(center.dx, center.dy + r), circlePaint);
+
+    // Sweep Arc
+    final sweepPaint = Paint()
+      ..shader = SweepGradient(
+        center: Alignment.center,
+        startAngle: 0.0,
+        endAngle: math.pi / 2,
+        colors: [
+          AppColors.cyanGlow.withOpacity(0.6),
+          AppColors.cyanGlow.withOpacity(0.0),
+        ],
+        transform: GradientRotation(angle),
+      ).createShader(Rect.fromCircle(center: center, radius: r))
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(center, r, sweepPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _RadarSweepPainter oldDelegate) => oldDelegate.angle != angle;
 }
 
 /// Real-time Oscilloscope Waveform Widget
@@ -196,7 +342,6 @@ class _OscilloscopePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.5;
 
-    // Grid lines
     for (double x = 0; x < size.width; x += 15) {
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
     }
@@ -317,7 +462,6 @@ class _LineChartPainter extends CustomPainter {
 
     for (int i = 1; i < data.length; i++) {
       final x = i * stepX;
-      // Subtle procedural animation shift
       final animatedVal = (data[i] + math.sin(shift * 2 * math.pi + i) * 0.05).clamp(0.05, 0.95);
       final y = size.height * (1.0 - animatedVal);
       path.lineTo(x, y);

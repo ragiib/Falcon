@@ -8,6 +8,7 @@ import '../hud/falcon_header.dart';
 import '../hud/left_telemetry_stack.dart';
 import '../hud/right_telemetry_stack.dart';
 import '../hud/bottom_branding_bar.dart';
+import '../hud/hud_vector_overlay.dart';
 import '../theme/app_colors.dart';
 import '../../providers/chat_provider.dart';
 
@@ -72,44 +73,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
             // 2. Parallax Grid & Procedural Particles
             const Positioned.fill(child: ParallaxGridBackground()),
-            const Positioned.fill(child: ParticleSystem(count: 35)),
+            const Positioned.fill(child: ParticleSystem(count: 45)),
 
-            // 3. Central Radial Vignette
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    center: Alignment.center,
-                    radius: 0.9,
-                    colors: [
-                      Colors.transparent,
-                      AppColors.obsidian.withOpacity(0.75),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
-            // 4. Central Visual Focus: Falcon Arc Reactor Core
+            // 3. Central Visual Focus: Large Falcon Arc Reactor Core (560px diameter ~75% vertical screen height)
             const Positioned.fill(
               child: Center(
-                child: FalconCore(size: 420),
+                child: FalconCore(size: 560),
               ),
             ),
 
-            // 5. Left Telemetry Stack
+            // 4. Procedural Vector Overlay (Full-Bleed Axis Line & Angled Callouts)
+            const Positioned.fill(
+              child: HudVectorOverlay(),
+            ),
+
+            // 5. Left Telemetry Stack (High density)
             const Positioned(
-              top: 70,
-              bottom: 85,
-              left: 12,
+              top: 60,
+              bottom: 65,
+              left: 10,
               child: LeftTelemetryStack(),
             ),
 
-            // 6. Right Telemetry Stack
+            // 6. Right Telemetry Stack (High density)
             const Positioned(
-              top: 70,
-              bottom: 85,
-              right: 12,
+              top: 60,
+              bottom: 65,
+              right: 10,
               child: RightTelemetryStack(),
             ),
 
@@ -121,7 +111,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: FalconHeader(),
             ),
 
-            // 8. Bottom Branding & Traffic Bar
+            // 8. Bottom Branding Logo Bar
             const Positioned(
               bottom: 0,
               left: 0,
@@ -129,9 +119,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: BottomBrandingBar(),
             ),
 
-            // 9. Temporary Voice Response Overlay (Overlay above central core)
+            // 9. Temporary Voice Response Transcript Overlay
             const Positioned(
-              bottom: 120,
+              bottom: 80,
               left: 0,
               right: 0,
               child: Center(
@@ -145,7 +135,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             // 10. Debug Input Command Bar (Hidden by default, press / or T)
             if (_showDebugInput)
               Positioned(
-                bottom: 80,
+                bottom: 75,
                 left: 0,
                 right: 0,
                 child: Center(

@@ -306,3 +306,40 @@ Health Endpoint:       http://127.0.0.1:8000/api/v1/health
 [2026-08-06 23:21:22] [FAILURE] Backend process unexpectedly exited!
 [2026-08-06 23:21:27] [FAILURE] Backend process unexpectedly exited!
 [2026-08-06 23:21:33] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:28:27] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+
+A Dart VM Service on Windows is available at: http://127.0.0.1:61140/aFskeqCRRJY=/
+The Flutter DevTools debugger and profiler on Windows is available at: http://127.0.0.1:61140/aFskeqCRRJY=/devtools/?uri=ws://127.0.0.1:61140/aFskeqCRRJY=/ws
+Session initialized: 705653ee-6469-4a5a-ba14-e6e3dab674d9
+Stream error: DioException [bad response]: This exception was thrown because the response has a status code of 404 and RequestOptions.validateStatus was configured to throw for this status code.
+The status code of 404 has the following meaning: "Client error - the request contains bad syntax or cannot be fulfilled"
+Read more about status codes at https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+In order to resolve this exception you typically have either to verify and fix your request code or you have to fix the server code.
+
+Lost connection to device.
+[2026-08-06 23:28:40] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:28:43] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:33:56] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:34:01] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
