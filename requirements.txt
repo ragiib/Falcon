@@ -4,3 +4,6 @@ fastapi
 uvicorn
 pydantic
 psutil
+faster-whisper>=1.0.0
+sounddevice>=0.4.6
+scipy>=1.10.0

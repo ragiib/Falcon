@@ -52,24 +52,21 @@ class SttService {
     _shouldRestart = true;
 
     try {
-      const scriptPath = r'c:\falcon\scripts\stt_listener.ps1';
+      const scriptPath = r'c:\falcon\scripts\stt_listener.py';
       final fileExists = await File(scriptPath).exists();
 
       if (!fileExists) {
-        debugPrint("[STT Service] Error: stt_listener.ps1 script not found.");
+        debugPrint("[STT Service] Error: stt_listener.py script not found.");
         return;
       }
 
-      _process = await Process.start('powershell', [
-        '-ExecutionPolicy',
-        'Bypass',
-        '-NoProfile',
-        '-File',
+      _process = await Process.start('python', [
+        '-u',
         scriptPath,
       ]);
 
       _isListening = true;
-      debugPrint("[STT Service] Started native STT listener process.");
+      debugPrint("[STT Service] Started Faster-Whisper Large-v3 STT listener process.");
 
       _process!.stdout.transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
         _handleLine(line.trim());
