@@ -8,6 +8,9 @@ C:/falcon/build/windows/x64/flutter/CMakeFiles/INSTALL.dir
 C:/falcon/build/windows/x64/runner/CMakeFiles/falcon.dir
 C:/falcon/build/windows/x64/runner/CMakeFiles/INSTALL.dir
 C:/falcon/build/windows/x64/runner/CMakeFiles/ALL_BUILD.dir
+C:/falcon/build/windows/x64/plugins/bitsdojo_window_windows/CMakeFiles/bitsdojo_window_windows_plugin.dir
+C:/falcon/build/windows/x64/plugins/bitsdojo_window_windows/CMakeFiles/INSTALL.dir
+C:/falcon/build/windows/x64/plugins/bitsdojo_window_windows/CMakeFiles/ALL_BUILD.dir
 C:/falcon/build/windows/x64/plugins/jni/CMakeFiles/INSTALL.dir
 C:/falcon/build/windows/x64/plugins/jni/CMakeFiles/ALL_BUILD.dir
 C:/falcon/build/windows/x64/plugins/jni/shared/CMakeFiles/INSTALL.dir

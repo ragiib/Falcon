@@ -193,3 +193,116 @@ Environment Type:      System Python
 Backend URL:           http://127.0.0.1:8000
 Health Endpoint:       http://127.0.0.1:8000/api/v1/health
 ----------------------------------
+[2026-08-06 22:34:49] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 22:34:52] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 22:51:22] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 22:51:25] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:02:33] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:02:35] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:12:56] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:12:59] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:13:11] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+    + CategoryInfo          : NotSpecified: (lib/ui/core_ren...semble.vcxproj]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+C:\Program Files (x86)\Microsoft Visual 
+Studio\2022\BuildTools\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(254,5): error MSB8066: Custom build for 'C
+:\falcon\build\windows\x64\CMakeFiles\5ba11ed7be0339f80a165953ea7fedd7\flutter_windows.dll.rule;C:\falcon\build\windows
+\x64\CMakeFiles\40af3f0e4f072655aa1ec0c8ca93a675\flutter_assemble.rule' exited with code 1. 
+[C:\falcon\build\windows\x64\flutter\flutter_assemble.vcxproj]
+Building Windows application...                                     8.2s
+Error: Build process failed.
+[2026-08-06 23:13:34] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:13:36] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:13:38] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:13:45] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:13:50] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:13:56] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+    + CategoryInfo          : NotSpecified: (lib/ui/core_ren...semble.vcxproj]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+C:\Program Files (x86)\Microsoft Visual 
+Studio\2022\BuildTools\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(254,5): error MSB8066: Custom build for 'C
+:\falcon\build\windows\x64\CMakeFiles\5ba11ed7be0339f80a165953ea7fedd7\flutter_windows.dll.rule;C:\falcon\build\windows
+\x64\CMakeFiles\40af3f0e4f072655aa1ec0c8ca93a675\flutter_assemble.rule' exited with code 1. 
+[C:\falcon\build\windows\x64\flutter\flutter_assemble.vcxproj]
+Building Windows application...                                    11.8s
+Error: Build process failed.
+[2026-08-06 23:20:30] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:20:34] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:20:37] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:20:42] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:20:47] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:20:52] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:20:57] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:21:02] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:21:07] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:21:12] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:21:17] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:21:22] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:21:27] [FAILURE] Backend process unexpectedly exited!
+[2026-08-06 23:21:33] [FAILURE] Backend process unexpectedly exited!

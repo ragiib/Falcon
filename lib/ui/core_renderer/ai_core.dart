@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/chat_provider.dart';
+import '../../providers/audio_provider.dart';
 import '../theme/app_colors.dart';
 
 class AiCore extends ConsumerStatefulWidget {
@@ -39,10 +40,12 @@ class _AiCoreState extends ConsumerState<AiCore> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final aiState = ref.watch(aiStateProvider);
+    final amplitude = ref.watch(audioAmplitudeProvider);
 
     // Adjust speeds based on state
     switch (aiState) {
       case AiState.idle:
+      case AiState.listening:
         _mainController.duration = const Duration(seconds: 12);
         _pulseController.duration = const Duration(seconds: 3);
         break;
@@ -51,9 +54,13 @@ class _AiCoreState extends ConsumerState<AiCore> with TickerProviderStateMixin {
         _pulseController.duration = const Duration(seconds: 1);
         break;
       case AiState.generating:
+      case AiState.speaking:
         _mainController.duration = const Duration(seconds: 2);
         _pulseController.duration = const Duration(milliseconds: 500);
         break;
+      default:
+        _mainController.duration = const Duration(seconds: 12);
+        _pulseController.duration = const Duration(seconds: 3);
     }
     
     if (!_mainController.isAnimating) _mainController.repeat();
@@ -68,8 +75,9 @@ class _AiCoreState extends ConsumerState<AiCore> with TickerProviderStateMixin {
               rotationValue: _mainController.value,
               pulseValue: _pulseController.value,
               state: aiState,
+              amplitude: amplitude,
             ),
-            size: const Size(200, 200),
+            size: const Size(350, 350), // Larger for center of screen
           );
         },
       ),
@@ -81,11 +89,13 @@ class AiCorePainter extends CustomPainter {
   final double rotationValue;
   final double pulseValue;
   final AiState state;
+  final double amplitude;
 
   AiCorePainter({
     required this.rotationValue,
     required this.pulseValue,
     required this.state,
+    required this.amplitude,
   });
 
   @override
@@ -93,56 +103,72 @@ class AiCorePainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final maxRadius = math.min(size.width, size.height) / 2;
 
-    Color primaryColor;
-    Color secondaryColor;
+    Color primaryColor = AppColors.cyanGlow;
+    Color secondaryColor = AppColors.blueEnergy;
 
     switch (state) {
-      case AiState.idle:
-        primaryColor = AppColors.cyanGlow;
-        secondaryColor = AppColors.blueEnergy;
-        break;
       case AiState.thinking:
         primaryColor = AppColors.purpleEnergy;
         secondaryColor = AppColors.cyanGlow;
         break;
+      case AiState.speaking:
       case AiState.generating:
         primaryColor = AppColors.blueEnergy;
-        secondaryColor = AppColors.purpleEnergy;
+        secondaryColor = AppColors.cyanGlow;
+        break;
+      case AiState.error:
+        primaryColor = AppColors.error;
+        secondaryColor = Colors.redAccent;
+        break;
+      case AiState.warning:
+        primaryColor = AppColors.warning;
+        secondaryColor = Colors.orangeAccent;
+        break;
+      case AiState.success:
+        primaryColor = AppColors.success;
+        secondaryColor = Colors.greenAccent;
+        break;
+      default:
         break;
     }
 
+    // React to amplitude: boost scale and glow
+    final dynamicScale = 1.0 + (amplitude * 0.4);
+    final baseRadius = maxRadius * 0.8 * dynamicScale;
+
     // 1. Outer ambient glow
     final glowPaint = Paint()
-      ..color = primaryColor.withOpacity(0.15 + (0.1 * pulseValue))
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 30)
+      ..color = primaryColor.withOpacity(0.15 + (0.1 * pulseValue) + (amplitude * 0.2))
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 40)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, maxRadius * 0.85, glowPaint);
+    canvas.drawCircle(center, baseRadius, glowPaint);
 
     // 2. Rotating orbital rings
-    _drawOrbitalRing(canvas, center, maxRadius * 0.8, rotationValue * 2 * math.pi, primaryColor, 2.0);
-    _drawOrbitalRing(canvas, center, maxRadius * 0.7, -rotationValue * 3 * math.pi, secondaryColor, 1.0, dashed: true);
-    _drawOrbitalRing(canvas, center, maxRadius * 0.55, rotationValue * 1.5 * math.pi, primaryColor, 1.5);
+    _drawOrbitalRing(canvas, center, baseRadius * 0.9, rotationValue * 2 * math.pi, primaryColor, 2.0);
+    _drawOrbitalRing(canvas, center, baseRadius * 0.75, -rotationValue * 3 * math.pi, secondaryColor, 1.0, dashed: true);
+    _drawOrbitalRing(canvas, center, baseRadius * 0.6, rotationValue * 1.5 * math.pi, primaryColor, 1.5);
 
     // 3. Inner energy wave propagation
     final wavePaint = Paint()
       ..color = primaryColor.withOpacity(0.4 * (1 - pulseValue))
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0;
-    canvas.drawCircle(center, maxRadius * 0.3 + (maxRadius * 0.3 * pulseValue), wavePaint);
+    canvas.drawCircle(center, baseRadius * 0.4 + (baseRadius * 0.3 * pulseValue), wavePaint);
 
-    // 4. Core Nucleus
+    // 4. Core Nucleus (reacts strongly to amplitude)
     final corePaint = Paint()
       ..color = Colors.white
-      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 10)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 15)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, maxRadius * 0.15 + (maxRadius * 0.05 * pulseValue), corePaint);
+    final nucleusSize = baseRadius * 0.15 + (baseRadius * 0.05 * pulseValue) + (baseRadius * 0.2 * amplitude);
+    canvas.drawCircle(center, nucleusSize, corePaint);
 
     // 5. Nucleus Aura
     final auraPaint = Paint()
       ..color = secondaryColor.withOpacity(0.8)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 15)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 20)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, maxRadius * 0.2 + (maxRadius * 0.05 * pulseValue), auraPaint);
+    canvas.drawCircle(center, nucleusSize * 1.5, auraPaint);
   }
 
   void _drawOrbitalRing(Canvas canvas, Offset center, double radius, double rotation, Color color, double strokeWidth, {bool dashed = false}) {
@@ -168,7 +194,6 @@ class AiCorePainter extends CustomPainter {
         );
       }
     } else {
-      // Add slight imperfections / varying opacity to continuous rings
       final Gradient gradient = SweepGradient(
         colors: [color.withOpacity(0.1), color, color.withOpacity(0.1)],
         stops: const [0.0, 0.5, 1.0],
@@ -177,8 +202,7 @@ class AiCorePainter extends CustomPainter {
       canvas.drawCircle(Offset.zero, radius, paint);
     }
     
-    // Draw an orbital body on the ring
-    final orbitalPaint = Paint()..color = Colors.white..style = PaintingStyle.fill..maskFilter = const MaskFilter.blur(BlurStyle.solid, 2);
+    final orbitalPaint = Paint()..color = Colors.white..style = PaintingStyle.fill..maskFilter = const MaskFilter.blur(BlurStyle.solid, 3);
     canvas.drawCircle(Offset(radius, 0), strokeWidth * 2, orbitalPaint);
 
     canvas.restore();
@@ -188,6 +212,7 @@ class AiCorePainter extends CustomPainter {
   bool shouldRepaint(covariant AiCorePainter oldDelegate) {
     return oldDelegate.rotationValue != rotationValue ||
            oldDelegate.pulseValue != pulseValue ||
-           oldDelegate.state != state;
+           oldDelegate.state != state ||
+           oldDelegate.amplitude != amplitude;
   }
 }

@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color obsidian = Color(0xFF070B14);
-  static const Color darkBackground = Color(0xFF0A0F1C);
-  static const Color panelBackground = Color(0xFF131B2F);
+  static const Color obsidian = Color(0xFF030508);
+  static const Color darkBackground = Color(0xFF070B12);
+  static const Color panelBackground = Color(0xFF0A101D);
   
   static const Color cyanGlow = Color(0xFF00F0FF);
-  static const Color blueEnergy = Color(0xFF2D5BFF);
-  static const Color purpleEnergy = Color(0xFF8B2DFF);
+  static const Color electricBlue = Color(0xFF00A3FF);
+  static const Color blueEnergy = Color(0xFF0284C7);
+  static const Color purpleEnergy = Color(0xFF00A3FF); // Cyan/blue HUD alias
+  static const Color deepCyan = Color(0xFF083344);
   
-  static const Color textPrimary = Colors.white;
-  static const Color textSecondary = Color(0xFF94A3B8);
-  static const Color textDisabled = Color(0xFF475569);
+  static const Color textPrimary = Color(0xFFE0F2FE);
+  static const Color textSecondary = Color(0xFF38BDF8);
+  static const Color textDisabled = Color(0xFF1E3A8A);
   
-  static const Color success = Color(0xFF10B981);
-  static const Color warning = Color(0xFFF59E0B);
-  static const Color error = Color(0xFFEF4444);
+  static const Color success = Color(0xFF00F0FF);
+  static const Color warning = Color(0xFF38BDF8);
+  static const Color error = Color(0xFF0284C7);
 
-  static const Color glassBorder = Color(0x33FFFFFF); // 20% white
-  static const Color glassFill = Color(0x0FFFFFFF); // 6% white
+  static const Color glassBorder = Color(0x4000F0FF); // 25% cyan border
+  static const Color glassFill = Color(0x0F00F0FF); // 6% cyan fill
 }

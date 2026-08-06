@@ -9,34 +9,51 @@ class FalconTheme {
       scaffoldBackgroundColor: AppColors.obsidian,
       colorScheme: const ColorScheme.dark(
         primary: AppColors.cyanGlow,
-        secondary: AppColors.purpleEnergy,
+        secondary: AppColors.electricBlue,
         surface: AppColors.darkBackground,
-        error: AppColors.error,
+        error: AppColors.electricBlue,
       ),
-      textTheme: GoogleFonts.interTextTheme(
+      textTheme: GoogleFonts.shareTechMonoTextTheme(
         ThemeData.dark().textTheme,
       ).copyWith(
-        displayLarge: GoogleFonts.inter(
-          color: AppColors.textPrimary,
+        displayLarge: GoogleFonts.shareTechMono(
+          color: AppColors.cyanGlow,
           fontSize: 32,
           fontWeight: FontWeight.bold,
-          letterSpacing: -0.5,
+          letterSpacing: 2.0,
         ),
-        bodyLarge: GoogleFonts.inter(
+        displayMedium: GoogleFonts.shareTechMono(
+          color: AppColors.cyanGlow,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 2.0,
+        ),
+        bodyLarge: GoogleFonts.shareTechMono(
           color: AppColors.textPrimary,
-          fontSize: 16,
-          height: 1.5,
-        ),
-        bodyMedium: GoogleFonts.inter(
-          color: AppColors.textSecondary,
           fontSize: 14,
-          height: 1.4,
+          letterSpacing: 1.0,
         ),
-        labelSmall: GoogleFonts.inter(
-          color: AppColors.textDisabled,
+        bodyMedium: GoogleFonts.shareTechMono(
+          color: AppColors.textSecondary,
+          fontSize: 11,
+          letterSpacing: 1.0,
+        ),
+        bodySmall: GoogleFonts.shareTechMono(
+          color: AppColors.textSecondary,
+          fontSize: 9,
+          letterSpacing: 1.2,
+        ),
+        labelMedium: GoogleFonts.shareTechMono(
+          color: AppColors.cyanGlow,
           fontSize: 10,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.5,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.5,
+        ),
+        labelSmall: GoogleFonts.shareTechMono(
+          color: AppColors.textSecondary,
+          fontSize: 8,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 1.0,
         ),
       ),
       useMaterial3: true,

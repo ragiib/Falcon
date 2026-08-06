@@ -1,8 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/chat_message.dart';
 import '../services/api_service.dart';
+import 'dart:async';
 
-enum AiState { idle, thinking, generating }
+enum AiState { 
+  idle, 
+  listening, 
+  thinking, 
+  generating, 
+  speaking, 
+  toolExecution, 
+  success, 
+  warning, 
+  error, 
+  shutdown 
+}
 
 final apiServiceProvider = Provider((ref) => ApiService());
 
@@ -10,6 +22,7 @@ final aiStateProvider = StateProvider<AiState>((ref) => AiState.idle);
 
 class ChatNotifier extends StateNotifier<List<ChatMessage>> {
   final Ref ref;
+  Timer? _transcriptClearTimer;
 
   ChatNotifier(this.ref) : super([]) {
     // Init session on startup
@@ -18,6 +31,8 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
 
   void sendMessage(String content) async {
     if (content.trim().isEmpty) return;
+
+    _transcriptClearTimer?.cancel();
 
     final userMsg = ChatMessage(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -35,7 +50,8 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       isStreaming: true,
     );
 
-    state = [...state, userMsg, aiMsg];
+    // Only keep the latest exchange in state for the temporary transcript overlay
+    state = [userMsg, aiMsg];
     
     // Set state to thinking
     ref.read(aiStateProvider.notifier).state = AiState.thinking;
@@ -45,7 +61,8 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
     bool isFirstToken = true;
     await for (final token in stream) {
       if (isFirstToken) {
-        ref.read(aiStateProvider.notifier).state = AiState.generating;
+        // We'll consider generating text to also be the speaking phase for the visualizer
+        ref.read(aiStateProvider.notifier).state = AiState.speaking;
         isFirstToken = false;
       }
       
@@ -66,6 +83,13 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       }
       return msg;
     }).toList();
+
+    // Start timer to clear transcript
+    _transcriptClearTimer = Timer(const Duration(seconds: 4), () {
+      if (mounted && ref.read(aiStateProvider) == AiState.idle) {
+        state = [];
+      }
+    });
   }
 }
 

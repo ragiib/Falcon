@@ -16,6 +16,7 @@
         "flutter_markdown",
         "flutter_riverpod",
         "google_fonts",
+        "intl",
         "markdown"
       ],
       "devDependencies": [
@@ -46,6 +47,15 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "intl",
+      "version": "0.20.3",
+      "dependencies": [
+        "clock",
+        "meta",
+        "path"
       ]
     },
     {
@@ -234,6 +244,31 @@
       ]
     },
     {
+      "name": "highlighter",
+      "version": "0.1.1",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
+      "name": "bitsdojo_window_linux",
+      "version": "0.1.4",
+      "dependencies": [
+        "bitsdojo_window_platform_interface",
+        "ffi",
+        "flutter"
+      ]
+    },
+    {
+      "name": "bitsdojo_window_macos",
+      "version": "0.1.4",
+      "dependencies": [
+        "bitsdojo_window_platform_interface",
+        "ffi",
+        "flutter"
+      ]
+    },
+    {
       "name": "bitsdojo_window_windows",
       "version": "0.1.6",
       "dependencies": [
@@ -250,24 +285,6 @@
         "flutter",
         "meta",
         "plugin_platform_interface"
-      ]
-    },
-    {
-      "name": "bitsdojo_window_macos",
-      "version": "0.1.4",
-      "dependencies": [
-        "bitsdojo_window_platform_interface",
-        "ffi",
-        "flutter"
-      ]
-    },
-    {
-      "name": "bitsdojo_window_linux",
-      "version": "0.1.4",
-      "dependencies": [
-        "bitsdojo_window_platform_interface",
-        "ffi",
-        "flutter"
       ]
     },
     {
@@ -432,6 +449,13 @@
       "name": "ffi",
       "version": "2.2.0",
       "dependencies": []
+    },
+    {
+      "name": "win32",
+      "version": "5.15.0",
+      "dependencies": [
+        "ffi"
+      ]
     },
     {
       "name": "plugin_platform_interface",
@@ -618,20 +642,6 @@
         "collection",
         "meta",
         "pub_semver"
-      ]
-    },
-    {
-      "name": "highlighter",
-      "version": "0.1.1",
-      "dependencies": [
-        "collection"
-      ]
-    },
-    {
-      "name": "win32",
-      "version": "5.15.0",
-      "dependencies": [
-        "ffi"
       ]
     }
   ],

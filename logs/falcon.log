@@ -175,3 +175,85 @@
 2026-08-06 22:16:08,977 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session ab0c58d0-dee2-4636-9a1c-1d4b38a91609
 2026-08-06 22:16:08,977 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
 2026-08-06 22:16:17,555 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 8.58s.
+2026-08-06 22:31:18,146 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: 5766b6e6-f61b-4305-9cb4-f8e3cdf7ee6e)
+2026-08-06 22:31:18,151 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 5.01ms (ID: 5766b6e6-f61b-4305-9cb4-f8e3cdf7ee6e)
+2026-08-06 22:31:18,152 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'general' for session ab0c58d0-dee2-4636-9a1c-1d4b38a91609
+2026-08-06 22:31:18,152 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: normal
+2026-08-06 22:31:18,153 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 6 messages.
+2026-08-06 22:31:18,153 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session ab0c58d0-dee2-4636-9a1c-1d4b38a91609
+2026-08-06 22:31:18,153 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-06 22:31:51,705 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 33.55s.
+2026-08-06 22:34:53,838 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 22:34:53,838 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 22:34:53,841 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 22:34:53,841 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 22:34:56,262 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 59f30019-3985-4bca-9559-0d8156b22e42)
+2026-08-06 22:34:56,274 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 10.91ms (ID: 59f30019-3985-4bca-9559-0d8156b22e42)
+2026-08-06 22:35:19,335 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 8bc17361-423c-402b-bd78-a81789e93e2c)
+2026-08-06 22:35:19,337 - falcon_ai_services.intelligence.session - INFO - Created new session: f210b8ca-c031-4f02-aacd-1ade2245067e
+2026-08-06 22:35:19,338 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 3.29ms (ID: 8bc17361-423c-402b-bd78-a81789e93e2c)
+2026-08-06 22:51:27,559 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 22:51:27,559 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 22:51:27,561 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 22:51:27,561 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 22:51:29,989 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: e95dee81-c62a-4e9b-841e-94cb3501c9cb)
+2026-08-06 22:51:29,998 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 8.52ms (ID: e95dee81-c62a-4e9b-841e-94cb3501c9cb)
+2026-08-06 22:51:45,854 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: ade913f6-26fe-4737-9c7c-210043c1c4f6)
+2026-08-06 22:51:45,859 - falcon_ai_services.intelligence.session - INFO - Created new session: cf217c63-839d-4e51-adfa-7033999a6fa9
+2026-08-06 22:51:45,859 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 3.25ms (ID: ade913f6-26fe-4737-9c7c-210043c1c4f6)
+2026-08-06 23:02:35,767 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 95072fb8-2ee2-436a-a143-0a3a50f7d638)
+2026-08-06 23:02:35,768 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.01ms (ID: 95072fb8-2ee2-436a-a143-0a3a50f7d638)
+2026-08-06 23:02:37,036 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 23:02:37,037 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 23:02:37,037 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 23:02:37,038 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 23:02:50,288 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 0702bcf6-b160-49af-a682-de42eb00509b)
+2026-08-06 23:02:50,289 - falcon_ai_services.intelligence.session - INFO - Created new session: d9d39f0e-45a6-45f0-85aa-ee3fce678083
+2026-08-06 23:02:50,289 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 1.00ms (ID: 0702bcf6-b160-49af-a682-de42eb00509b)
+2026-08-06 23:12:59,370 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: bac23bde-ce3a-4da3-af6b-e030056de2e3)
+2026-08-06 23:12:59,372 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.99ms (ID: bac23bde-ce3a-4da3-af6b-e030056de2e3)
+2026-08-06 23:13:00,666 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 23:13:00,666 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 23:13:00,667 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 23:13:00,667 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 23:13:36,587 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: f595f57f-9792-4f0a-9a3f-a5d1a48b1036)
+2026-08-06 23:13:36,587 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.00ms (ID: f595f57f-9792-4f0a-9a3f-a5d1a48b1036)
+2026-08-06 23:13:41,798 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 4f2223a2-fecc-4d32-8d23-ea6497fd09dd)
+2026-08-06 23:13:41,800 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 2.00ms (ID: 4f2223a2-fecc-4d32-8d23-ea6497fd09dd)
+2026-08-06 23:13:48,884 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 53c4ff68-2aeb-4822-9281-400ee3c38669)
+2026-08-06 23:13:48,889 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 5.00ms (ID: 53c4ff68-2aeb-4822-9281-400ee3c38669)
+2026-08-06 23:13:53,961 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 434b7db8-1aea-4068-8e1d-617f01c5b243)
+2026-08-06 23:13:53,962 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.00ms (ID: 434b7db8-1aea-4068-8e1d-617f01c5b243)
+2026-08-06 23:16:19,249 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 26089d6a-4954-4511-b5a9-e071879c2b9a)
+2026-08-06 23:16:19,250 - falcon_ai_services.intelligence.session - INFO - Created new session: 685b18b1-33c6-4671-baa3-d65b10badbe4
+2026-08-06 23:16:19,250 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 1.00ms (ID: 26089d6a-4954-4511-b5a9-e071879c2b9a)
+2026-08-06 23:19:30,547 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: c7e36942-a3d7-45b4-893e-3633c0a1a132)
+2026-08-06 23:19:30,549 - falcon_ai_services.intelligence.session - INFO - Created new session: a66f7e64-28bf-4628-a5a2-044128568c32
+2026-08-06 23:19:30,549 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 1.89ms (ID: c7e36942-a3d7-45b4-893e-3633c0a1a132)
+2026-08-06 23:20:34,850 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: d129294c-ec6c-4a8e-ad8c-3af582d709b0)
+2026-08-06 23:20:34,852 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 2.32ms (ID: d129294c-ec6c-4a8e-ad8c-3af582d709b0)
+2026-08-06 23:20:40,098 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 799619e8-2ae5-43b4-8ad0-0f3eda9236fb)
+2026-08-06 23:20:40,098 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.00ms (ID: 799619e8-2ae5-43b4-8ad0-0f3eda9236fb)
+2026-08-06 23:20:45,179 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 2b866855-dbb4-4a07-a679-eecf2b3c1eb0)
+2026-08-06 23:20:45,180 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.00ms (ID: 2b866855-dbb4-4a07-a679-eecf2b3c1eb0)
+2026-08-06 23:20:48,517 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: eb1d61ae-b1ad-40dc-8660-3b11dad4048e)
+2026-08-06 23:20:48,518 - falcon_ai_services.intelligence.session - INFO - Created new session: 705653ee-6469-4a5a-ba14-e6e3dab674d9
+2026-08-06 23:20:48,518 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 0.00ms (ID: eb1d61ae-b1ad-40dc-8660-3b11dad4048e)
+2026-08-06 23:20:50,277 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 4c7b5e19-b937-449e-82c9-117161b6766a)
+2026-08-06 23:20:50,278 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.00ms (ID: 4c7b5e19-b937-449e-82c9-117161b6766a)
+2026-08-06 23:20:55,385 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: f69543d1-94c0-488b-a43b-6de6a5d5ff62)
+2026-08-06 23:20:55,386 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.00ms (ID: f69543d1-94c0-488b-a43b-6de6a5d5ff62)
+2026-08-06 23:21:00,478 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: cbece835-11b5-4f94-a615-029680225b73)
+2026-08-06 23:21:00,478 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.00ms (ID: cbece835-11b5-4f94-a615-029680225b73)
+2026-08-06 23:21:05,564 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: cb806434-eede-460a-99d7-f3be4a2ad0f7)
+2026-08-06 23:21:05,565 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.01ms (ID: cb806434-eede-460a-99d7-f3be4a2ad0f7)
+2026-08-06 23:21:10,660 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 27078c52-7090-4506-9585-94a901985ae4)
+2026-08-06 23:21:10,662 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.00ms (ID: 27078c52-7090-4506-9585-94a901985ae4)
+2026-08-06 23:21:15,748 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: d8ede5fa-d1ef-495c-b5bf-b41f6ea0cf4f)
+2026-08-06 23:21:15,750 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.35ms (ID: d8ede5fa-d1ef-495c-b5bf-b41f6ea0cf4f)
+2026-08-06 23:21:20,839 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: f041d4d5-cf42-4e21-bb3f-2294223d8664)
+2026-08-06 23:21:20,840 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 0.99ms (ID: f041d4d5-cf42-4e21-bb3f-2294223d8664)
+2026-08-06 23:21:25,924 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: bb907b90-ea69-4593-9b3c-36a06ec7e89f)
+2026-08-06 23:21:25,925 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.00ms (ID: bb907b90-ea69-4593-9b3c-36a06ec7e89f)
+2026-08-06 23:21:31,026 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: e9e8379e-3cef-4a1e-8014-e0e009929ff6)
+2026-08-06 23:21:31,027 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 1.01ms (ID: e9e8379e-3cef-4a1e-8014-e0e009929ff6)
