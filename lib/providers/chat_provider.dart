@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import '../models/chat_message.dart';
 import '../services/api_service.dart';
 import '../services/speech_service.dart';
