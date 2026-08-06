@@ -3,15 +3,16 @@ import 'package:flutter/foundation.dart';
 import '../services/speech_service.dart';
 
 enum VoiceMode {
-  idle,
   wakeWordDetection,
   activated,
   greeting,
   listening,
-  processing,
+  recognizingSpeech,
+  processingRequest,
+  thinking,
   speaking,
-  continuousConversation,
-  returningToIdle,
+  returningToSleep,
+  error,
 }
 
 class VoiceController {
@@ -20,73 +21,88 @@ class VoiceController {
   VoiceController._internal();
 
   final SpeechService _speechService = SpeechService();
-  VoiceMode _mode = VoiceMode.idle;
+  VoiceMode _mode = VoiceMode.wakeWordDetection;
   VoiceMode get mode => _mode;
 
   Timer? _continuousListeningTimer;
   VoidCallback? onModeChanged;
-  Function(String)? onUserSpeechRecognized;
 
   /// Triggered when wake word "Falcon" is detected or activation key/button pressed
   Future<void> activate({String greeting = "Yes, sir. How can I assist you today?"}) async {
     _continuousListeningTimer?.cancel();
     _mode = VoiceMode.activated;
     onModeChanged?.call();
-    debugPrint("[VoiceController] Activated! Playing voice greeting...");
+    debugPrint("[VoiceController] STATUS: ACTIVATED");
 
+    await Future.delayed(const Duration(milliseconds: 200));
     _mode = VoiceMode.greeting;
     onModeChanged?.call();
+    debugPrint("[VoiceController] STATUS: GREETING");
 
     // Speak natural greeting aloud
-    await _speechService.speakDirect(greeting);
+    _speechService.speakDirect(greeting);
+  }
 
-    // After greeting completes, enter Listening mode automatically
-    _enterListeningMode();
+  /// Called when TTS finishes speaking (greeting or response)
+  void notifySpeechFinished() {
+    debugPrint("[VoiceController] Speech finished. Current mode: $_mode");
+    if (_mode == VoiceMode.greeting || _mode == VoiceMode.speaking) {
+      _enterListeningMode();
+    }
   }
 
   void _enterListeningMode() {
+    _continuousListeningTimer?.cancel();
     _mode = VoiceMode.listening;
     onModeChanged?.call();
-    debugPrint("[VoiceController] Transitioned to Listening mode.");
+    debugPrint("[VoiceController] STATUS: LISTENING (10s command & follow-up window active)");
 
-    // Start 7-second continuous listening window timer
-    _continuousListeningTimer?.cancel();
-    _continuousListeningTimer = Timer(const Duration(seconds: 7), () {
+    // Start 10-second continuous listening window timer
+    _continuousListeningTimer = Timer(const Duration(seconds: 10), () {
       if (_mode == VoiceMode.listening) {
-        _returnToIdle();
+        _returnToSleep();
       }
     });
   }
 
-  /// Triggered when AI starts processing or generating response
-  void notifyProcessing() {
+  void notifyRecognizingSpeech() {
     _continuousListeningTimer?.cancel();
-    _mode = VoiceMode.processing;
+    _mode = VoiceMode.recognizingSpeech;
     onModeChanged?.call();
+    debugPrint("[VoiceController] STATUS: RECOGNIZING SPEECH");
   }
 
-  /// Triggered when AI starts speaking response
+  void notifyProcessingRequest() {
+    _continuousListeningTimer?.cancel();
+    _mode = VoiceMode.processingRequest;
+    onModeChanged?.call();
+    debugPrint("[VoiceController] STATUS: PROCESSING REQUEST");
+  }
+
+  void notifyThinking() {
+    _continuousListeningTimer?.cancel();
+    _mode = VoiceMode.thinking;
+    onModeChanged?.call();
+    debugPrint("[VoiceController] STATUS: THINKING");
+  }
+
   void notifySpeaking() {
     _continuousListeningTimer?.cancel();
     _mode = VoiceMode.speaking;
     onModeChanged?.call();
+    debugPrint("[VoiceController] STATUS: SPEAKING");
   }
 
-  /// Triggered when AI finishes speaking response
-  void notifySpeechFinished() {
-    debugPrint("[VoiceController] AI response speech finished. Entering Continuous Conversation window.");
-    _enterListeningMode();
-  }
-
-  void _returnToIdle() {
-    _mode = VoiceMode.returningToIdle;
+  void _returnToSleep() {
+    _continuousListeningTimer?.cancel();
+    _mode = VoiceMode.returningToSleep;
     onModeChanged?.call();
-    debugPrint("[VoiceController] Returning to Idle state.");
+    debugPrint("[VoiceController] STATUS: RETURNING TO SLEEP");
 
     Timer(const Duration(milliseconds: 500), () {
-      _mode = VoiceMode.idle;
+      _mode = VoiceMode.wakeWordDetection;
       onModeChanged?.call();
-      debugPrint("[VoiceController] Idle. Resumed ambient wake-word detection.");
+      debugPrint("[VoiceController] STATUS: WAKE WORD DETECTION (Monitoring for 'Falcon')");
     });
   }
 }

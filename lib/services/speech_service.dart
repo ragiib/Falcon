@@ -43,7 +43,10 @@ class SpeechService {
 
     _state = SpeechState.stopped;
     debugPrint("[Native TTS] Speech stopped & queue cleared.");
-    onSpeechComplete?.call();
+    // Do NOT call onSpeechComplete here — stop() is an interruption,
+    // not a natural completion. Firing it here causes false state transitions
+    // (e.g., entering Listening mode before greeting even starts).
+    onSpeechCancel?.call();
   }
 
   /// Appends incoming streaming LLM token for low-latency sentence-level speech

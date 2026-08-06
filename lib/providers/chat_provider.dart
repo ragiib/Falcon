@@ -7,16 +7,17 @@ import '../services/voice_controller.dart';
 import 'dart:async';
 
 enum AiState { 
-  idle, 
+  wakeWordDetection, 
+  activated, 
+  greeting, 
   listening, 
+  recognizingSpeech, 
+  processingRequest, 
   thinking, 
   generating, 
   speaking, 
-  toolExecution, 
-  success, 
-  warning, 
-  error, 
-  shutdown 
+  returningToSleep, 
+  error 
 }
 
 final apiServiceProvider = Provider((ref) => ApiService());
@@ -27,7 +28,7 @@ final sttServiceProvider = Provider((ref) => SttService());
 
 final voiceControllerProvider = Provider((ref) => VoiceController());
 
-final aiStateProvider = StateProvider<AiState>((ref) => AiState.idle);
+final aiStateProvider = StateProvider<AiState>((ref) => AiState.wakeWordDetection);
 
 class ChatNotifier extends StateNotifier<List<ChatMessage>> {
   final Ref ref;
@@ -45,52 +46,64 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
     _sttService.startListening();
 
     // Bind Wake-Word Detection ("Falcon") -> Triggers activation sequence automatically
-    _sttService.onWakeWordDetected = () {
-      activateVoiceAssistant();
-    };
-
-    // Bind Recognized Speech -> Sends text directly to LLM if in listening mode
-    _sttService.onSpeechRecognized = (recognizedText) {
+    _sttService.addWakeWordListener(() {
       final currentAiState = ref.read(aiStateProvider);
-      if (currentAiState == AiState.listening || currentAiState == AiState.idle) {
+      if (currentAiState == AiState.wakeWordDetection) {
+        activateVoiceAssistant();
+      }
+    });
+
+    // Bind Recognized Speech -> STRICT GUARD: Only accept speech when in Listening state!
+    _sttService.addSpeechRecognizedListener((recognizedText) {
+      final currentAiState = ref.read(aiStateProvider);
+      if (currentAiState == AiState.listening) {
+        _voiceController.notifyRecognizingSpeech();
         sendMessage(recognizedText);
       }
-    };
+    });
 
     // Synchronize SpeechService callbacks with AiState & VoiceController
     _speechService.onSpeechStart = () {
-      ref.read(aiStateProvider.notifier).state = AiState.speaking;
-      _voiceController.notifySpeaking();
+      final currentAiState = ref.read(aiStateProvider);
+      if (currentAiState != AiState.greeting) {
+        ref.read(aiStateProvider.notifier).state = AiState.speaking;
+        _voiceController.notifySpeaking();
+      }
     };
 
     _speechService.onSpeechComplete = () {
-      if (ref.read(aiStateProvider) == AiState.speaking) {
-        // Continuous conversation mode: Transition to listening automatically after speech
-        ref.read(aiStateProvider.notifier).state = AiState.listening;
-        _voiceController.notifySpeechFinished();
-      }
+      _voiceController.notifySpeechFinished();
     };
 
     // Synchronize VoiceController mode with AiState
     _voiceController.onModeChanged = () {
       switch (_voiceController.mode) {
+        case VoiceMode.wakeWordDetection:
+          ref.read(aiStateProvider.notifier).state = AiState.wakeWordDetection;
+          break;
         case VoiceMode.activated:
+          ref.read(aiStateProvider.notifier).state = AiState.activated;
+          break;
         case VoiceMode.greeting:
-          ref.read(aiStateProvider.notifier).state = AiState.speaking;
+          ref.read(aiStateProvider.notifier).state = AiState.greeting;
           break;
         case VoiceMode.listening:
-        case VoiceMode.continuousConversation:
           ref.read(aiStateProvider.notifier).state = AiState.listening;
           break;
-        case VoiceMode.processing:
+        case VoiceMode.recognizingSpeech:
+          ref.read(aiStateProvider.notifier).state = AiState.recognizingSpeech;
+          break;
+        case VoiceMode.processingRequest:
+          ref.read(aiStateProvider.notifier).state = AiState.processingRequest;
+          break;
+        case VoiceMode.thinking:
           ref.read(aiStateProvider.notifier).state = AiState.thinking;
           break;
         case VoiceMode.speaking:
           ref.read(aiStateProvider.notifier).state = AiState.speaking;
           break;
-        case VoiceMode.idle:
-        case VoiceMode.returningToIdle:
-          ref.read(aiStateProvider.notifier).state = AiState.idle;
+        case VoiceMode.returningToSleep:
+          ref.read(aiStateProvider.notifier).state = AiState.returningToSleep;
           break;
         default:
           break;
@@ -100,6 +113,12 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
 
   /// Triggers wake-word activation greeting ("Falcon")
   Future<void> activateVoiceAssistant() async {
+    // Guard: prevent repeated activations while already active/greeting/speaking
+    final currentState = ref.read(aiStateProvider);
+    if (currentState != AiState.wakeWordDetection && currentState != AiState.returningToSleep) {
+      debugPrint('[ChatNotifier] Activation blocked — already in state: $currentState');
+      return;
+    }
     await _speechService.stop();
     await _voiceController.activate();
   }
@@ -109,9 +128,9 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
 
     _transcriptClearTimer?.cancel();
 
-    // Interruption handling: Immediately stop any active speech playback
+    // Interruption handling: Immediately stop active speech playback
     await _speechService.stop();
-    _voiceController.notifyProcessing();
+    _voiceController.notifyProcessingRequest();
 
     final userMsg = ChatMessage(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -131,8 +150,9 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
 
     // Keep latest exchange in state for temporary transcript overlay
     state = [userMsg, aiMsg];
-    
-    // Set state to thinking
+
+    await Future.delayed(const Duration(milliseconds: 300));
+    _voiceController.notifyThinking();
     ref.read(aiStateProvider.notifier).state = AiState.thinking;
 
     final stream = ref.read(apiServiceProvider).sendChatMessage(content);
@@ -167,9 +187,9 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       return msg;
     }).toList();
 
-    // Start timer to clear transcript overlay after 6 seconds of idle/listening state
-    _transcriptClearTimer = Timer(const Duration(seconds: 6), () {
-      if (mounted && (ref.read(aiStateProvider) == AiState.idle || ref.read(aiStateProvider) == AiState.listening)) {
+    // Start timer to clear transcript overlay after 8 seconds of idle/listening state
+    _transcriptClearTimer = Timer(const Duration(seconds: 8), () {
+      if (mounted && (ref.read(aiStateProvider) == AiState.wakeWordDetection || ref.read(aiStateProvider) == AiState.listening)) {
         state = [];
       }
     });

@@ -16,9 +16,9 @@ class AudioAmplitudeNotifier extends StateNotifier<double> {
 
   AudioAmplitudeNotifier(this.ref) : super(0.0) {
     // Listen to live microphone volume updates from STT Service
-    _sttService.onVolumeUpdated = (micVol) {
+    _sttService.addVolumeUpdatedListener((micVol) {
       _micVolumeInput = micVol;
-    };
+    });
 
     _startAmplitudeLoop();
   }

@@ -11,13 +11,45 @@ class SttService {
   Process? _process;
   bool _isListening = false;
   bool get isListening => _isListening;
+  bool _shouldRestart = true;
 
-  VoidCallback? onWakeWordDetected;
-  Function(String)? onSpeechRecognized;
-  Function(double)? onVolumeUpdated;
+  // Use callback LISTS instead of single callbacks so multiple consumers
+  // (ChatNotifier, AudioAmplitudeNotifier) can register without overwriting.
+  final List<VoidCallback> _wakeWordListeners = [];
+  final List<Function(String)> _speechRecognizedListeners = [];
+  final List<Function(double)> _volumeUpdatedListeners = [];
+
+  void addWakeWordListener(VoidCallback cb) {
+    if (!_wakeWordListeners.contains(cb)) _wakeWordListeners.add(cb);
+  }
+
+  void addSpeechRecognizedListener(Function(String) cb) {
+    if (!_speechRecognizedListeners.contains(cb)) _speechRecognizedListeners.add(cb);
+  }
+
+  void addVolumeUpdatedListener(Function(double) cb) {
+    if (!_volumeUpdatedListeners.contains(cb)) _volumeUpdatedListeners.add(cb);
+  }
+
+  // Keep legacy setters for backward compatibility but they ADD to the list
+  set onWakeWordDetected(VoidCallback? cb) {
+    _wakeWordListeners.clear();
+    if (cb != null) _wakeWordListeners.add(cb);
+  }
+
+  set onSpeechRecognized(Function(String)? cb) {
+    _speechRecognizedListeners.clear();
+    if (cb != null) _speechRecognizedListeners.add(cb);
+  }
+
+  set onVolumeUpdated(Function(double)? cb) {
+    _volumeUpdatedListeners.clear();
+    if (cb != null) _volumeUpdatedListeners.add(cb);
+  }
 
   Future<void> startListening() async {
     if (_isListening) return;
+    _shouldRestart = true;
 
     try {
       const scriptPath = r'c:\falcon\scripts\stt_listener.ps1';
@@ -53,10 +85,19 @@ class SttService {
         debugPrint("[STT Service] Process exited with code $code");
         _isListening = false;
         _process = null;
+
+        // Auto-restart resilience if exited unexpectedly
+        if (_shouldRestart) {
+          debugPrint("[STT Service] Auto-restarting continuous listener...");
+          Future.delayed(const Duration(seconds: 1), () => startListening());
+        }
       });
     } catch (e) {
       debugPrint("[STT Service] Exception starting listener: $e");
       _isListening = false;
+      if (_shouldRestart) {
+        Future.delayed(const Duration(seconds: 2), () => startListening());
+      }
     }
   }
 
@@ -65,23 +106,30 @@ class SttService {
 
     if (line == 'WAKE_WORD_DETECTED') {
       debugPrint("[STT Service] WAKE WORD DETECTED!");
-      onWakeWordDetected?.call();
+      for (final cb in _wakeWordListeners) {
+        cb();
+      }
     } else if (line.startsWith('RECOGNIZED:')) {
       final text = line.substring(11).trim();
       if (text.isNotEmpty) {
         debugPrint("[STT Service] Recognized Speech: $text");
-        onSpeechRecognized?.call(text);
+        for (final cb in _speechRecognizedListeners) {
+          cb(text);
+        }
       }
     } else if (line.startsWith('VOLUME:')) {
       final volStr = line.substring(7).trim();
       final vol = double.tryParse(volStr) ?? 0.0;
       // Normalize volume level (0-100) to 0.0-1.0
       final normalized = (vol / 100.0).clamp(0.0, 1.0);
-      onVolumeUpdated?.call(normalized);
+      for (final cb in _volumeUpdatedListeners) {
+        cb(normalized);
+      }
     }
   }
 
   Future<void> stopListening() async {
+    _shouldRestart = false;
     if (_process != null) {
       try {
         _process!.kill(ProcessSignal.sigkill);

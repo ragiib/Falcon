@@ -80,7 +80,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             }
           } else if (event.character == 'v') {
             // Hotkey 'V' activates Falcon Voice Assistant greeting ("Falcon")
-            ref.read(chatProvider.notifier).activateVoiceAssistant();
+            final currentState = ref.read(aiStateProvider);
+            if (currentState == AiState.wakeWordDetection || currentState == AiState.returningToSleep) {
+              ref.read(chatProvider.notifier).activateVoiceAssistant();
+            }
           }
         },
         child: Stack(
@@ -111,7 +114,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: GestureDetector(
                   onTap: () {
                     // Tap on central Arc Reactor activates Falcon Voice Assistant
-                    ref.read(chatProvider.notifier).activateVoiceAssistant();
+                    // Guard: only activate when in idle state
+                    final currentState = ref.read(aiStateProvider);
+                    if (currentState == AiState.wakeWordDetection || currentState == AiState.returningToSleep) {
+                      ref.read(chatProvider.notifier).activateVoiceAssistant();
+                    }
                   },
                   child: const FalconCore(size: 560),
                 ),
