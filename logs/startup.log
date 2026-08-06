@@ -343,3 +343,51 @@ Environment Type:      System Python
 Backend URL:           http://127.0.0.1:8000
 Health Endpoint:       http://127.0.0.1:8000/api/v1/health
 ----------------------------------
+[2026-08-06 23:38:38] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:38:43] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:43:24] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:43:27] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:50:07] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:50:12] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 23:55:32] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 23:55:36] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------

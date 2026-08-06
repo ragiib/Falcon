@@ -231,6 +231,9 @@ JAVA_INCLUDE_PATH2:PATH=C:/falcon/windows/flutter/ephemeral/.plugin_symlinks/jni
 //Java Virtual Machine library
 JAVA_JVM_LIBRARY:FILEPATH=JAVA_JVM_LIBRARY-NOTFOUND
 
+//Path to a program.
+NUGET_EXE:FILEPATH=NUGET_EXE-NOTFOUND
+
 //Value Computed by CMake
 bitsdojo_window_windows_BINARY_DIR:STATIC=C:/falcon/build/windows/x64/plugins/bitsdojo_window_windows
 
@@ -248,6 +251,15 @@ falcon_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 falcon_SOURCE_DIR:STATIC=C:/falcon/windows
+
+//Value Computed by CMake
+flutter_tts_BINARY_DIR:STATIC=C:/falcon/build/windows/x64/plugins/flutter_tts
+
+//Value Computed by CMake
+flutter_tts_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+flutter_tts_SOURCE_DIR:STATIC=C:/falcon/windows/flutter/ephemeral/.plugin_symlinks/flutter_tts/windows
 
 //Value Computed by CMake
 jni_BINARY_DIR:STATIC=C:/falcon/build/windows/x64/plugins/jni

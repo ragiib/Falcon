@@ -2,38 +2,58 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'chat_provider.dart';
+import '../services/speech_service.dart';
+import '../services/stt_service.dart';
 
 class AudioAmplitudeNotifier extends StateNotifier<double> {
   final Ref ref;
   Timer? _timer;
   final math.Random _random = math.Random();
+  final SpeechService _speechService = SpeechService();
+  final SttService _sttService = SttService();
   double _target = 0.0;
+  double _micVolumeInput = 0.0;
 
   AudioAmplitudeNotifier(this.ref) : super(0.0) {
-    _startSimulation();
+    // Listen to live microphone volume updates from STT Service
+    _sttService.onVolumeUpdated = (micVol) {
+      _micVolumeInput = micVol;
+    };
+
+    _startAmplitudeLoop();
   }
 
-  void _startSimulation() {
+  void _startAmplitudeLoop() {
     _timer = Timer.periodic(const Duration(milliseconds: 32), (timer) {
       final aiState = ref.read(aiStateProvider);
-      
-      if (aiState == AiState.speaking) {
-        // Simulate rapid amplitude changes for speech
-        if (_random.nextDouble() > 0.7) {
-          _target = _random.nextDouble() * 0.8 + 0.2;
+      final isTtsSpeaking = _speechService.state == SpeechState.playing;
+
+      if (aiState == AiState.speaking || isTtsSpeaking) {
+        // AI Speaking: Erupt dynamic amplitude spikes for reactor flares & waveform
+        if (_random.nextDouble() > 0.6) {
+          _target = _random.nextDouble() * 0.85 + 0.15;
         } else {
-          _target = _target * 0.5; // decay
+          _target = _target * 0.45; // Smooth audio decay
         }
       } else if (aiState == AiState.listening) {
-        // Slow breathing wave
-        _target = (math.sin(DateTime.now().millisecondsSinceEpoch / 500) + 1) / 2 * 0.3;
+        // User Speaking into Mic: Live microphone audio volume drives Falcon Core bouncing in real time!
+        if (_micVolumeInput > 0.05) {
+          _target = _micVolumeInput * 0.9 + 0.1;
+        } else {
+          // Ambient breathing wave while waiting for user speech
+          _target = (math.sin(DateTime.now().millisecondsSinceEpoch / 400) + 1) / 2 * 0.35 + 0.05;
+        }
+      } else if (aiState == AiState.generating || aiState == AiState.thinking) {
+        // Generating/Thinking: Pulsing core excitation
+        _target = (math.sin(DateTime.now().millisecondsSinceEpoch / 250) + 1) / 2 * 0.4 + 0.1;
       } else {
-        // Idle/Thinking decay to 0
+        // Idle: Smooth decay to baseline
         _target = 0.0;
+        _micVolumeInput = 0.0;
       }
 
-      // Interpolate for smoothness
-      state = state + (_target - state) * 0.4;
+      // Smooth interpolation for 60 FPS visual rendering
+      state = state + (_target - state) * 0.35;
     });
   }
 

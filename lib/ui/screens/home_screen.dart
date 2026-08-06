@@ -21,8 +21,26 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _debugTextController = TextEditingController();
+  final FocusNode _inputFocusNode = FocusNode();
+  final FocusNode _keyboardFocusNode = FocusNode();
   bool _showDebugInput = false;
-  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    // Ensure keyboard focus node requests focus once mounted
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _keyboardFocusNode.requestFocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    _debugTextController.dispose();
+    _inputFocusNode.dispose();
+    _keyboardFocusNode.dispose();
+    super.dispose();
+  }
 
   void _sendMessage() {
     final text = _debugTextController.text;
@@ -32,7 +50,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       setState(() {
         _showDebugInput = false;
       });
-      FocusScope.of(context).unfocus();
+      // Permanently restore keyboard listener focus after sending message
+      _keyboardFocusNode.requestFocus();
+    }
+  }
+
+  void _toggleInput() {
+    setState(() {
+      _showDebugInput = !_showDebugInput;
+    });
+    if (_showDebugInput) {
+      _inputFocusNode.requestFocus();
+    } else {
+      _keyboardFocusNode.requestFocus();
     }
   }
 
@@ -41,16 +71,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       backgroundColor: AppColors.obsidian,
       body: KeyboardListener(
-        focusNode: FocusNode(),
+        focusNode: _keyboardFocusNode,
         autofocus: true,
         onKeyEvent: (event) {
           if (event.character == 't' || event.character == '/') {
             if (!_showDebugInput) {
-              setState(() {
-                _showDebugInput = true;
-              });
-              _focusNode.requestFocus();
+              _toggleInput();
             }
+          } else if (event.character == 'v') {
+            // Hotkey 'V' activates Falcon Voice Assistant greeting ("Falcon")
+            ref.read(chatProvider.notifier).activateVoiceAssistant();
           }
         },
         child: Stack(
@@ -76,9 +106,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const Positioned.fill(child: ParticleSystem(count: 45)),
 
             // 3. Central Visual Focus: Large Falcon Arc Reactor Core (560px diameter ~75% vertical screen height)
-            const Positioned.fill(
+            Positioned.fill(
               child: Center(
-                child: FalconCore(size: 560),
+                child: GestureDetector(
+                  onTap: () {
+                    // Tap on central Arc Reactor activates Falcon Voice Assistant
+                    ref.read(chatProvider.notifier).activateVoiceAssistant();
+                  },
+                  child: const FalconCore(size: 560),
+                ),
               ),
             ),
 
@@ -132,7 +168,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
 
-            // 10. Debug Input Command Bar (Hidden by default, press / or T)
+            // 10. Debug Input Command Bar (Press / or T, tap Core, or press V)
             if (_showDebugInput)
               Positioned(
                 bottom: 75,
@@ -152,11 +188,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                     child: TextField(
                       controller: _debugTextController,
-                      focusNode: _focusNode,
+                      focusNode: _inputFocusNode,
                       style: const TextStyle(color: AppColors.cyanGlow, fontFamily: 'Share Tech Mono'),
                       decoration: const InputDecoration(
-                        hintText: 'DEBUG COMMAND OVERRIDE...',
-                        hintStyle: TextStyle(color: AppColors.textDisabled, fontFamily: 'Share Tech Mono'),
+                        hintText: 'DEBUG COMMAND OVERRIDE (PRESS ESC OR ENTER TO CLOSE)...',
+                        hintStyle: TextStyle(color: AppColors.textDisabled, fontSize: 10, fontFamily: 'Share Tech Mono'),
                         border: InputBorder.none,
                       ),
                       onSubmitted: (_) => _sendMessage(),

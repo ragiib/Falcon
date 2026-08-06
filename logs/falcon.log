@@ -289,3 +289,88 @@
 2026-08-06 23:34:20,081 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 256bb7b2-ae71-4f36-a75a-b881d7f32956)
 2026-08-06 23:34:20,083 - falcon_ai_services.intelligence.session - INFO - Created new session: ea5cb2e0-7068-4681-a4d4-52e10fe0f826
 2026-08-06 23:34:20,084 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 3.00ms (ID: 256bb7b2-ae71-4f36-a75a-b881d7f32956)
+2026-08-06 23:38:47,491 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 23:38:47,492 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 23:38:47,498 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 23:38:47,498 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 23:38:47,809 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 0253f368-d93e-4d65-90e2-c7d390075eef)
+2026-08-06 23:38:47,831 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 19.45ms (ID: 0253f368-d93e-4d65-90e2-c7d390075eef)
+2026-08-06 23:39:21,214 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 60f9d886-995c-45b0-9062-3675abe070e2)
+2026-08-06 23:39:21,224 - falcon_ai_services.intelligence.session - INFO - Created new session: 0d7fa4fd-c653-40de-8108-6fdd7599dbcb
+2026-08-06 23:39:21,227 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 12.56ms (ID: 60f9d886-995c-45b0-9062-3675abe070e2)
+2026-08-06 23:43:28,838 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 23:43:28,838 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 23:43:28,839 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 23:43:28,839 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 23:43:29,015 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 7d77e170-13f4-4cb2-ac67-c03163d2a9c8)
+2026-08-06 23:43:29,022 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 7.00ms (ID: 7d77e170-13f4-4cb2-ac67-c03163d2a9c8)
+2026-08-06 23:43:40,741 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: f4008db5-a6ec-4785-89a8-cdceed90072f)
+2026-08-06 23:43:40,744 - falcon_ai_services.intelligence.session - INFO - Created new session: f0343e40-b1ac-455e-8376-a2b5ef113d06
+2026-08-06 23:43:40,745 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 2.30ms (ID: f4008db5-a6ec-4785-89a8-cdceed90072f)
+2026-08-06 23:44:02,608 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: c21c26b8-315b-41b3-9702-3e5517affe76)
+2026-08-06 23:44:02,615 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 6.33ms (ID: c21c26b8-315b-41b3-9702-3e5517affe76)
+2026-08-06 23:44:02,616 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'general' for session f0343e40-b1ac-455e-8376-a2b5ef113d06
+2026-08-06 23:44:02,616 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: normal
+2026-08-06 23:44:02,617 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-06 23:44:02,617 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session f0343e40-b1ac-455e-8376-a2b5ef113d06
+2026-08-06 23:44:02,618 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-06 23:44:10,642 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-06 23:44:10,644 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-06 23:44:32,208 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 21.56s.
+2026-08-06 23:50:14,673 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 23:50:14,674 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 23:50:14,677 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 23:50:14,677 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 23:50:16,305 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 8c1390b4-0b54-40d0-a1e1-4227b5acb58c)
+2026-08-06 23:50:16,319 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 13.36ms (ID: 8c1390b4-0b54-40d0-a1e1-4227b5acb58c)
+2026-08-06 23:50:28,965 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 3dbf4196-cffa-4817-bce3-968cf8e0626a)
+2026-08-06 23:50:28,969 - falcon_ai_services.intelligence.session - INFO - Created new session: 604b2bac-fedd-4542-b36e-8277f4386795
+2026-08-06 23:50:28,969 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 3.91ms (ID: 3dbf4196-cffa-4817-bce3-968cf8e0626a)
+2026-08-06 23:50:35,583 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: 603d039b-e0b6-47ff-9f09-5288a2bfeb26)
+2026-08-06 23:50:35,593 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 9.41ms (ID: 603d039b-e0b6-47ff-9f09-5288a2bfeb26)
+2026-08-06 23:50:35,594 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'chat' for session 604b2bac-fedd-4542-b36e-8277f4386795
+2026-08-06 23:50:35,594 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: tiny
+2026-08-06 23:50:35,595 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-06 23:50:35,595 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 604b2bac-fedd-4542-b36e-8277f4386795
+2026-08-06 23:50:35,595 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-06 23:50:43,045 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-06 23:50:43,047 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-06 23:51:05,804 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 22.76s.
+2026-08-06 23:54:30,299 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 0d092b63-3af1-4c34-9644-c983a59e6d25)
+2026-08-06 23:54:30,308 - falcon_ai_services.intelligence.session - INFO - Created new session: c6461857-1235-4a5a-8958-021e9cf5edd7
+2026-08-06 23:54:30,315 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 15.35ms (ID: 0d092b63-3af1-4c34-9644-c983a59e6d25)
+2026-08-06 23:55:39,207 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 23:55:39,209 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 23:55:39,210 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 23:55:39,210 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 23:55:41,089 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 1c8d889c-5ce4-4ee8-aa6a-a55e5f014fd0)
+2026-08-06 23:55:41,103 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 14.40ms (ID: 1c8d889c-5ce4-4ee8-aa6a-a55e5f014fd0)
+2026-08-06 23:56:08,424 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: 97bc9fe3-d06e-43c0-b97f-4dcbe5d6fb72)
+2026-08-06 23:56:08,429 - falcon_ai_services.intelligence.session - INFO - Created new session: 89030416-452d-4f27-a9a2-983fe942b63f
+2026-08-06 23:56:08,429 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 4.00ms (ID: 97bc9fe3-d06e-43c0-b97f-4dcbe5d6fb72)
+2026-08-06 23:56:38,229 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: 13025617-eea3-470b-abdb-b7763dba4a16)
+2026-08-06 23:56:38,256 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 27.18ms (ID: 13025617-eea3-470b-abdb-b7763dba4a16)
+2026-08-06 23:56:38,257 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session 89030416-452d-4f27-a9a2-983fe942b63f
+2026-08-06 23:56:38,258 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: short
+2026-08-06 23:56:38,258 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-06 23:56:38,258 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 89030416-452d-4f27-a9a2-983fe942b63f
+2026-08-06 23:56:38,260 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-06 23:56:51,436 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-06 23:56:51,437 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-06 23:57:50,288 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 58.85s.
+2026-08-06 23:58:25,364 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: 081f9c8e-dad1-4d67-92cf-1c5a273328ea)
+2026-08-06 23:58:25,379 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 14.84ms (ID: 081f9c8e-dad1-4d67-92cf-1c5a273328ea)
+2026-08-06 23:58:25,382 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session 89030416-452d-4f27-a9a2-983fe942b63f
+2026-08-06 23:58:25,383 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: short
+2026-08-06 23:58:25,385 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 4 messages.
+2026-08-06 23:58:25,385 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 89030416-452d-4f27-a9a2-983fe942b63f
+2026-08-06 23:58:25,385 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-06 23:59:12,535 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 47.15s.
+2026-08-06 23:59:38,477 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: 45e3a27d-a22f-40cd-8e42-e10ff0ad5450)
+2026-08-06 23:59:38,483 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 5.76ms (ID: 45e3a27d-a22f-40cd-8e42-e10ff0ad5450)
+2026-08-06 23:59:38,483 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'general' for session 89030416-452d-4f27-a9a2-983fe942b63f
+2026-08-06 23:59:38,483 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: normal
+2026-08-06 23:59:38,483 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 6 messages.
+2026-08-06 23:59:38,483 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session 89030416-452d-4f27-a9a2-983fe942b63f
+2026-08-06 23:59:38,483 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-07 00:00:12,451 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 33.97s.
