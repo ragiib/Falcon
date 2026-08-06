@@ -1,132 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../providers/chat_provider.dart';
-import '../widgets/ai_core_painter.dart';
-import '../widgets/chat_message_bubble.dart';
-import '../widgets/glass_container.dart';
+import '../animations/particle_system.dart';
+import '../core_renderer/ai_core.dart';
+import '../chat/chat_view.dart';
+import '../hud/system_metrics_panel.dart';
+import '../hud/latency_metrics_panel.dart';
+import '../theme/app_colors.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  final TextEditingController _textController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
-
-  void _sendMessage() {
-    final text = _textController.text;
-    if (text.trim().isNotEmpty) {
-      ref.read(chatProvider.notifier).sendMessage(text);
-      _textController.clear();
-      _scrollToBottom();
-    }
-  }
-
-  void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final messages = ref.watch(chatProvider);
-    // Auto-scroll when new messages arrive or stream updates
-    ref.listen(chatProvider, (previous, next) {
-      if (previous?.length != next.length) {
-        _scrollToBottom();
-      }
-    });
-
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A), // Deep dark background
+      backgroundColor: AppColors.obsidian,
       body: Stack(
         children: [
-          // Background Gradient and Core Animation
+          // 1. Background Grid / Glow
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
                 gradient: RadialGradient(
-                  center: Alignment.center,
+                  center: Alignment.topCenter,
                   radius: 1.5,
                   colors: [
-                    Color(0xFF1E293B),
-                    Color(0xFF0F172A),
+                    AppColors.panelBackground,
+                    AppColors.obsidian,
                   ],
                 ),
               ),
             ),
           ),
           
-          // AI Core Animation - Top center or background
+          // 2. Ambient Particles
+          const Positioned.fill(
+            child: ParticleSystem(count: 30),
+          ),
+
+          // 3. AI Core (Centered top)
           const Positioned(
-            top: 40,
+            top: 20,
             left: 0,
             right: 0,
             child: Center(
-              child: AiCoreAnimation(),
+              child: AiCore(),
             ),
           ),
 
-          // Chat Interface Layer
+          // 4. Chat View (Bottom half, layered above background)
           SafeArea(
             child: Column(
               children: [
-                const SizedBox(height: 180), // Space for the AI core
+                const SizedBox(height: 240), // Space for AI Core
                 Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      return ChatMessageBubble(message: messages[index]);
-                    },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppColors.obsidian.withOpacity(0.0),
+                          AppColors.obsidian.withOpacity(0.8),
+                          AppColors.obsidian,
+                        ],
+                        stops: const [0.0, 0.2, 1.0],
+                      ),
+                    ),
+                    child: const ChatView(),
                   ),
                 ),
-                _buildInputArea(),
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildInputArea() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: GlassContainer(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        borderRadius: BorderRadius.circular(32),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _textController,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: 'Message Falcon...',
-                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
-                  border: InputBorder.none,
-                ),
-                onSubmitted: (_) => _sendMessage(),
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.send, color: Colors.cyan),
-              onPressed: _sendMessage,
-            ),
-          ],
-        ),
+          // 5. HUD Panels (Floating above everything)
+          const SystemMetricsPanel(),
+          const LatencyMetricsPanel(),
+        ],
       ),
     );
   }

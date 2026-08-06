@@ -130,3 +130,48 @@
 2026-08-05 23:26:29,044 - falcon_ai_services.api.app - INFO - API server startup complete.
 2026-08-05 23:26:31,509 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 16868fa5-f7df-497d-8cbf-0408381a635f)
 2026-08-05 23:26:31,518 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 8.27ms (ID: 16868fa5-f7df-497d-8cbf-0408381a635f)
+2026-08-05 23:39:09,979 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:39:09,979 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:39:09,979 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:39:09,979 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:39:10,029 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 2c5fae6f-47a5-4212-ad5c-45ca57c815c5)
+2026-08-05 23:39:10,038 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 8.75ms (ID: 2c5fae6f-47a5-4212-ad5c-45ca57c815c5)
+2026-08-05 23:51:48,896 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-05 23:51:48,896 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-05 23:51:48,900 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-05 23:51:48,900 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-05 23:51:50,858 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: cc4b128e-af6e-4f21-a881-5498c6a89bd4)
+2026-08-05 23:51:50,869 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 10.65ms (ID: cc4b128e-af6e-4f21-a881-5498c6a89bd4)
+2026-08-06 21:01:50,486 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 21:01:50,487 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 21:01:50,489 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 21:01:50,489 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 21:01:51,865 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: 330feb1e-8ffa-470f-bbc9-f25bd70bbe35)
+2026-08-06 21:01:51,884 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 18.31ms (ID: 330feb1e-8ffa-470f-bbc9-f25bd70bbe35)
+2026-08-06 22:14:26,550 - falcon_ai_services.api.app - INFO - Starting up API server...
+2026-08-06 22:14:26,551 - falcon_ai_services.providers.factory - INFO - Initializing model provider: qwen
+2026-08-06 22:14:26,553 - falcon_ai_services.providers.factory - INFO - Provider qwen initialized. Model will load lazily on first request.
+2026-08-06 22:14:26,553 - falcon_ai_services.api.app - INFO - API server startup complete.
+2026-08-06 22:14:28,627 - falcon_ai_services.api.middleware - INFO - Request started: GET /api/v1/health (ID: ecabd6f6-3279-4e42-beeb-a4178f9f472d)
+2026-08-06 22:14:28,641 - falcon_ai_services.api.middleware - INFO - Request completed: GET /api/v1/health - Status: 200 - Time: 13.29ms (ID: ecabd6f6-3279-4e42-beeb-a4178f9f472d)
+2026-08-06 22:15:13,421 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/session (ID: cac3ff70-8ccc-4910-9bf8-6ed496cc8178)
+2026-08-06 22:15:13,424 - falcon_ai_services.intelligence.session - INFO - Created new session: ab0c58d0-dee2-4636-9a1c-1d4b38a91609
+2026-08-06 22:15:13,424 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/session - Status: 200 - Time: 3.53ms (ID: cac3ff70-8ccc-4910-9bf8-6ed496cc8178)
+2026-08-06 22:15:26,113 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: 70d09e9b-c147-427f-8cbc-9ba5b34b02ba)
+2026-08-06 22:15:26,119 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 6.01ms (ID: 70d09e9b-c147-427f-8cbc-9ba5b34b02ba)
+2026-08-06 22:15:26,120 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'chat' for session ab0c58d0-dee2-4636-9a1c-1d4b38a91609
+2026-08-06 22:15:26,120 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: tiny
+2026-08-06 22:15:26,120 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 2 messages.
+2026-08-06 22:15:26,120 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session ab0c58d0-dee2-4636-9a1c-1d4b38a91609
+2026-08-06 22:15:26,121 - falcon_ai_services.providers.qwen - INFO - Loading Qwen model from C:\AI_Models\Qwen\qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf...
+2026-08-06 22:15:34,281 - falcon_ai_services.providers.qwen - INFO - Qwen model loaded successfully.
+2026-08-06 22:15:34,282 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-06 22:15:51,667 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 17.38s.
+2026-08-06 22:16:08,965 - falcon_ai_services.api.middleware - INFO - Request started: POST /api/v1/chat/stream (ID: b8f3df45-3897-49a7-b6a9-5797f3ea178b)
+2026-08-06 22:16:08,975 - falcon_ai_services.api.middleware - INFO - Request completed: POST /api/v1/chat/stream - Status: 200 - Time: 9.25ms (ID: b8f3df45-3897-49a7-b6a9-5797f3ea178b)
+2026-08-06 22:16:08,976 - falcon_ai_services.intelligence.intent - INFO - Detected intent 'question_answering' for session ab0c58d0-dee2-4636-9a1c-1d4b38a91609
+2026-08-06 22:16:08,976 - falcon_ai_services.intelligence.controller - INFO - Selected Response Profile: short
+2026-08-06 22:16:08,977 - falcon_ai_services.intelligence.prompt - INFO - Generated prompt profile with 4 messages.
+2026-08-06 22:16:08,977 - falcon_ai_services.intelligence.engine - INFO - Dispatching to provider for session ab0c58d0-dee2-4636-9a1c-1d4b38a91609
+2026-08-06 22:16:08,977 - falcon_ai_services.providers.qwen - INFO - Starting streaming generation...
+2026-08-06 22:16:17,555 - falcon_ai_services.providers.qwen - INFO - Streaming generation complete in 8.58s.

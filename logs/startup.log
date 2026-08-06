@@ -106,3 +106,90 @@ At line:1 char:33
 Please enable Developer Mode in your system settings. Run
   start ms-settings:developers
 to open settings.
+[2026-08-05 23:39:05] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:39:08] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:39:22] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+8 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Launching lib\main.dart on Windows in debug mode...
+flutter : Error: Unable to find suitable Visual Studio toolchain. Please run `flutter doctor` for more details.
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: Unable t...r more details.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[2026-08-05 23:51:43] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-05 23:51:46] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-05 23:52:03] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+8 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Launching lib\main.dart on Windows in debug mode...
+flutter : Error: Unable to find suitable Visual Studio toolchain. Please run `flutter doctor` for more details.
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: Unable t...r more details.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[2026-08-06 21:01:41] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 21:01:47] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-06 21:02:12] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+8 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Launching lib\main.dart on Windows in debug mode...
+flutter : Error: Unable to find suitable Visual Studio toolchain. Please run `flutter doctor` for more details.
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: Unable t...r more details.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[2026-08-06 22:14:21] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-06 22:14:24] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'ui/theme/falcon_theme.dart';
 import 'ui/screens/home_screen.dart';
+import 'ui/window/falcon_window.dart';
 
 void main() {
   runApp(
@@ -9,6 +11,16 @@ void main() {
       child: FalconApp(),
     ),
   );
+
+  doWhenWindowReady(() {
+    final win = appWindow;
+    const initialSize = Size(1280, 720);
+    win.minSize = const Size(800, 600);
+    win.size = initialSize;
+    win.alignment = Alignment.center;
+    win.title = "Falcon AI";
+    win.show();
+  });
 }
 
 class FalconApp extends StatelessWidget {
@@ -19,20 +31,8 @@ class FalconApp extends StatelessWidget {
     return MaterialApp(
       title: 'Falcon AI',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF0F172A),
-        colorScheme: const ColorScheme.dark(
-          primary: Colors.cyan,
-          secondary: Colors.purpleAccent,
-          surface: Color(0xFF1E293B),
-        ),
-        textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme.apply(bodyColor: Colors.white, displayColor: Colors.white),
-        ),
-        useMaterial3: true,
-      ),
-      home: const HomeScreen(),
+      theme: FalconTheme.darkTheme,
+      home: const FalconWindow(child: HomeScreen()),
     );
   }
 }
