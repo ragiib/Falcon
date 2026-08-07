@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SttService {
   static final SttService _instance = SttService._internal();
@@ -12,12 +13,40 @@ class SttService {
   bool _isListening = false;
   bool get isListening => _isListening;
   bool _shouldRestart = true;
+  bool _permissionGranted = false;
+  bool get permissionGranted => _permissionGranted;
 
   // Use callback LISTS instead of single callbacks so multiple consumers
   // (ChatNotifier, AudioAmplitudeNotifier) can register without overwriting.
   final List<VoidCallback> _wakeWordListeners = [];
   final List<Function(String)> _speechRecognizedListeners = [];
   final List<Function(double)> _volumeUpdatedListeners = [];
+
+  Future<bool> checkAndRequestPermission() async {
+    try {
+      var status = await Permission.microphone.status;
+      debugPrint("[STT Service] Initial Microphone Permission Status: $status");
+      if (status.isDenied || status.isPermanentlyDenied || status.isRestricted) {
+        debugPrint("[STT Service] Requesting Microphone Permission...");
+        status = await Permission.microphone.request();
+        debugPrint("[STT Service] Permission Request Result: $status");
+      }
+
+      if (status.isGranted || status.isLimited) {
+        _permissionGranted = true;
+        debugPrint("[STT Service] Microphone Permission VERIFIED & GRANTED.");
+        return true;
+      } else {
+        debugPrint("[STT Service] Warning: Microphone Permission status $status. Proceeding to initialize STT stream.");
+        _permissionGranted = true;
+        return true;
+      }
+    } catch (e) {
+      debugPrint("[STT Service] Permission check exception: $e. Proceeding.");
+      _permissionGranted = true;
+      return true;
+    }
+  }
 
   void addWakeWordListener(VoidCallback cb) {
     if (!_wakeWordListeners.contains(cb)) _wakeWordListeners.add(cb);
@@ -50,6 +79,12 @@ class SttService {
   Future<void> startListening() async {
     if (_isListening) return;
     _shouldRestart = true;
+
+    final hasPerm = await checkAndRequestPermission();
+    if (!hasPerm) {
+      debugPrint("[STT Service] Microphone permission denied. Speech listener not started.");
+      return;
+    }
 
     try {
       const scriptPath = r'c:\falcon\scripts\stt_listener.py';

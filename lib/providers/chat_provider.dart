@@ -49,15 +49,20 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
     // Bind Wake-Word Detection ("Falcon") -> Triggers activation sequence automatically
     _sttService.addWakeWordListener(() {
       final currentAiState = ref.read(aiStateProvider);
-      if (currentAiState == AiState.wakeWordDetection) {
+      debugPrint("[ChatNotifier] WAKE WORD TRIGGERED in state: $currentAiState");
+      if (currentAiState == AiState.wakeWordDetection || currentAiState == AiState.returningToSleep) {
         activateVoiceAssistant();
       }
     });
 
-    // Bind Recognized Speech -> STRICT GUARD: Only accept speech when in Listening state!
+    // Bind Recognized Speech -> Accept speech when assistant is in listening, active, or greeting state
     _sttService.addSpeechRecognizedListener((recognizedText) {
       final currentAiState = ref.read(aiStateProvider);
-      if (currentAiState == AiState.listening) {
+      debugPrint("[ChatNotifier] Speech recognized ('$recognizedText') in state: $currentAiState");
+      if (currentAiState == AiState.listening ||
+          currentAiState == AiState.wakeWordDetection ||
+          currentAiState == AiState.activated ||
+          currentAiState == AiState.greeting) {
         _voiceController.notifyRecognizingSpeech();
         sendMessage(recognizedText);
       }

@@ -45,48 +45,69 @@ else:
     MODEL_TARGET = "large-v3"
     log("Local model directory incomplete, will download/load via HuggingFace Hub...")
 
+def verify_model_transcribe(m):
+    # Pass 0.5s of silent audio to force CTranslate2 CUDA kernel initialization & DLL checks
+    dummy = np.zeros(8000, dtype=np.float32)
+    segments, _ = m.transcribe(dummy, language="en", beam_size=1)
+    list(segments)
+
 model = None
 device_used = "cuda"
 compute_type_used = "float16"
 
+cuda_available = True
 try:
     log(f"Attempting to load Faster-Whisper Large-v3 ({MODEL_TARGET}) on GPU (CUDA float16)...")
-    model = WhisperModel(
+    m = WhisperModel(
         MODEL_TARGET,
         device="cuda",
         compute_type="float16",
         download_root=MODEL_DIR
     )
-    log("Successfully initialized Faster-Whisper Large-v3 on GPU (CUDA float16).")
+    verify_model_transcribe(m)
+    model = m
+    log("Successfully initialized and verified Faster-Whisper Large-v3 on GPU (CUDA float16).")
 except Exception as cuda_err:
-    log(f"GPU CUDA float16 load failed: {cuda_err}")
-    try:
-        log("Retrying on GPU (CUDA int8_float16)...")
-        model = WhisperModel(
-            MODEL_TARGET,
-            device="cuda",
-            compute_type="int8_float16",
-            download_root=MODEL_DIR
-        )
-        compute_type_used = "int8_float16"
-        log("Successfully initialized Faster-Whisper Large-v3 on GPU (CUDA int8_float16).")
-    except Exception as cuda_err2:
-        log(f"GPU CUDA int8_float16 load failed: {cuda_err2}")
-        log("Falling back to CPU (int8, 4 threads)...")
+    log(f"GPU CUDA float16 load/warmup failed: {cuda_err}")
+    err_str = str(cuda_err).lower()
+    if "cublas" in err_str or "cudnn" in err_str or "not found" in err_str or "cuda" in err_str:
+        log("CUDA library error detected. Skipping GPU retries and falling directly back to CPU.")
+        cuda_available = False
+
+    if cuda_available:
         try:
-            model = WhisperModel(
+            log("Retrying on GPU (CUDA int8_float16)...")
+            m = WhisperModel(
                 MODEL_TARGET,
-                device="cpu",
-                compute_type="int8",
-                cpu_threads=4,
+                device="cuda",
+                compute_type="int8_float16",
                 download_root=MODEL_DIR
             )
-            device_used = "cpu"
-            compute_type_used = "int8"
-            log("Successfully initialized Faster-Whisper Large-v3 on CPU.")
-        except Exception as cpu_err:
-            log(f"CRITICAL: CPU model initialization failed: {cpu_err}\n{traceback.format_exc()}")
-            sys.exit(1)
+            verify_model_transcribe(m)
+            model = m
+            compute_type_used = "int8_float16"
+            log("Successfully initialized and verified Faster-Whisper Large-v3 on GPU (CUDA int8_float16).")
+        except Exception as cuda_err2:
+            log(f"GPU CUDA int8_float16 load/warmup failed: {cuda_err2}")
+            cuda_available = False
+
+if model is None:
+    log("Falling back to CPU (int8, 4 threads)...")
+    try:
+        model = WhisperModel(
+            MODEL_TARGET,
+            device="cpu",
+            compute_type="int8",
+            cpu_threads=4,
+            download_root=MODEL_DIR
+        )
+        verify_model_transcribe(model)
+        device_used = "cpu"
+        compute_type_used = "int8"
+        log("Successfully initialized and verified Faster-Whisper Large-v3 on CPU.")
+    except Exception as cpu_err:
+        log(f"CRITICAL: CPU model initialization failed: {cpu_err}\n{traceback.format_exc()}")
+        sys.exit(1)
 
 log(f"Model ready on {device_used.upper()} ({compute_type_used}). Signal STT_INITIALIZED to host.")
 
@@ -103,6 +124,8 @@ def audio_callback(indata, frames, time_info, status):
     audio_queue.put(indata.copy())
 
 try:
+    default_dev = sd.query_devices(kind='input')
+    log(f"Microphone Device Found: '{default_dev.get('name')}' (Channels: {default_dev.get('max_input_channels')}, Sample Rate: {default_dev.get('default_samplerate')} Hz)")
     stream = sd.InputStream(
         samplerate=SAMPLE_RATE,
         channels=1,

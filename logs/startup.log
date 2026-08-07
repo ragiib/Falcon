@@ -635,3 +635,53 @@ Stream error: HttpException: Connection closed while receiving data, uri = http:
 [VoiceController] Speech finished. Current mode: VoiceMode.speaking
 [VoiceController] STATUS: LISTENING (10s command & follow-up window active)
 Lost connection to device.
+[2026-08-07 14:42:19] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 14:42:22] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 14:43:21] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+
+RuntimeError: Library cublas64_12.dll is not found or cannot be loaded
+
+
+[Native TTS] Segment finished with exit code 0
+[VoiceController] Speech finished. Current mode: VoiceMode.greeting
+[VoiceController] STATUS: LISTENING (10s command & follow-up window active)
+[VoiceController] STATUS: RETURNING TO SLEEP
+[VoiceController] STATUS: WAKE WORD DETECTION (Monitoring for 'Falcon')
+Lost connection to device.
+[2026-08-07 14:54:02] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 14:54:06] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 14:54:25] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+Launching lib\main.dart on Windows in debug mode...
+Building Windows application...                                 
+flutter : Nuget.exe not found, trying to download or use cached version.
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Nuget.exe not f...cached version.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+^C

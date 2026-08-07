@@ -1649,3 +1649,97 @@ Stream error: HttpException: Connection closed while receiving data, uri = http:
 Lost connection to device.
 [2026-08-07 01:34:43] [RECOVERY] Check flutter logs for details:
 C:\falcon\logs\flutter.log
+[2026-08-07 14:42:19] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 14:42:19] [INFO] Searching for Backend project...
+[2026-08-07 14:42:19] [SUCCESS] Found Backend project at: C:\falcon
+[2026-08-07 14:42:19] [INFO] Searching for Flutter project...
+[2026-08-07 14:42:19] [SUCCESS] Found exactly one Flutter project at: C:\falcon
+[2026-08-07 14:42:19] [INFO] Discovering Python environment...
+[2026-08-07 14:42:19] [INFO] Verifying Python dependencies...
+[2026-08-07 14:42:20] [SUCCESS] Dependencies verified successfully.
+[2026-08-07 14:42:20] [INFO] Verifying Flutter SDK...
+[2026-08-07 14:42:22] [SUCCESS] Flutter found: Flutter 3.44.8 G求 channel stable G求 https://github.com/flutter/flutter.git
+[2026-08-07 14:42:22] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 14:42:22] [INFO] Starting FastAPI backend...
+[2026-08-07 14:42:22] [SUCCESS] Backend process started (PID: 31428).
+[2026-08-07 14:42:22] [INFO] Waiting for backend health (http://127.0.0.1:8000/api/v1/health)...
+[2026-08-07 14:42:22] [INFO] Health Check Attempt 1...
+[2026-08-07 14:42:25] [WARN] Health Check Failed: The operation has timed out.
+[2026-08-07 14:42:27] [INFO] Health Check Attempt 2...
+[2026-08-07 14:42:27] [SUCCESS] Health Check Successful. Backend Ready.
+[2026-08-07 14:42:27] [INFO] Launching Flutter Windows application...
+[2026-08-07 14:42:27] [SUCCESS] Flutter application launched (PID: 27044).
+[2026-08-07 14:42:27] [INFO] Entering process supervisor mode...
+[2026-08-07 14:43:21] [INFO] Flutter application closed.
+[2026-08-07 14:43:21] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+
+RuntimeError: Library cublas64_12.dll is not found or cannot be loaded
+
+
+[Native TTS] Segment finished with exit code 0
+[VoiceController] Speech finished. Current mode: VoiceMode.greeting
+[VoiceController] STATUS: LISTENING (10s command & follow-up window active)
+[VoiceController] STATUS: RETURNING TO SLEEP
+[VoiceController] STATUS: WAKE WORD DETECTION (Monitoring for 'Falcon')
+Lost connection to device.
+[2026-08-07 14:43:21] [RECOVERY] Check flutter logs for details:
+C:\falcon\logs\flutter.log
+[2026-08-07 14:54:02] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 14:54:02] [INFO] Searching for Backend project...
+[2026-08-07 14:54:02] [SUCCESS] Found Backend project at: C:\falcon
+[2026-08-07 14:54:02] [INFO] Searching for Flutter project...
+[2026-08-07 14:54:02] [SUCCESS] Found exactly one Flutter project at: C:\falcon
+[2026-08-07 14:54:02] [INFO] Discovering Python environment...
+[2026-08-07 14:54:02] [INFO] Verifying Python dependencies...
+[2026-08-07 14:54:04] [SUCCESS] Dependencies verified successfully.
+[2026-08-07 14:54:04] [INFO] Verifying Flutter SDK...
+[2026-08-07 14:54:06] [SUCCESS] Flutter found: Flutter 3.44.8 G求 channel stable G求 https://github.com/flutter/flutter.git
+[2026-08-07 14:54:06] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 14:54:06] [INFO] Starting FastAPI backend...
+[2026-08-07 14:54:06] [SUCCESS] Backend process started (PID: 14136).
+[2026-08-07 14:54:07] [INFO] Waiting for backend health (http://127.0.0.1:8000/api/v1/health)...
+[2026-08-07 14:54:07] [INFO] Health Check Attempt 1...
+[2026-08-07 14:54:09] [WARN] Health Check Failed: The operation has timed out.
+[2026-08-07 14:54:11] [INFO] Health Check Attempt 2...
+[2026-08-07 14:54:11] [SUCCESS] Health Check Successful. Backend Ready.
+[2026-08-07 14:54:11] [INFO] Launching Flutter Windows application...
+[2026-08-07 14:54:11] [SUCCESS] Flutter application launched (PID: 14360).
+[2026-08-07 14:54:11] [INFO] Entering process supervisor mode...
+[2026-08-07 14:54:25] [INFO] Flutter application closed.
+[2026-08-07 14:54:25] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+Launching lib\main.dart on Windows in debug mode...
+Building Windows application...                                 
+flutter : Nuget.exe not found, trying to download or use cached version.
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Nuget.exe not f...cached version.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+^C
+[2026-08-07 14:54:25] [RECOVERY] Check flutter logs for details:
+C:\falcon\logs\flutter.log

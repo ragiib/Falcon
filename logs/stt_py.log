@@ -7,3 +7,44 @@
 [2026-08-07 02:23:12] [STT_PY] Model ready on CUDA (float16). Signal STT_INITIALIZED to host.
 [2026-08-07 02:23:12] [STT_PY] Microphone audio stream started successfully.
 [2026-08-07 02:23:12] [STT_PY] Entering main audio loop...
+[2026-08-07 14:42:46] [STT_PY] Starting Faster-Whisper Large-v3 STT Listener...
+[2026-08-07 14:42:47] [STT_PY] Found local model directory at c:\falcon\models\stt\faster-whisper-large-v3
+[2026-08-07 14:42:47] [STT_PY] Attempting to load Faster-Whisper Large-v3 (c:\falcon\models\stt\faster-whisper-large-v3) on GPU (CUDA float16)...
+[2026-08-07 14:42:57] [STT_PY] Successfully initialized Faster-Whisper Large-v3 on GPU (CUDA float16).
+[2026-08-07 14:42:57] [STT_PY] Model ready on CUDA (float16). Signal STT_INITIALIZED to host.
+[2026-08-07 14:42:57] [STT_PY] Microphone audio stream started successfully.
+[2026-08-07 14:42:57] [STT_PY] Entering main audio loop...
+[2026-08-07 14:43:03] [STT_PY] Error during transcription: Library cublas64_12.dll is not found or cannot be loaded
+Traceback (most recent call last):
+  File "c:\falcon\scripts\stt_listener.py", line 160, in process_audio_segment
+    full_text = " ".join([s.text.strip() for s in segments]).strip()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\falcon\scripts\stt_listener.py", line 160, in <listcomp>
+    full_text = " ".join([s.text.strip() for s in segments]).strip()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ragib\AppData\Roaming\Python\Python311\site-packages\faster_whisper\transcribe.py", line 1851, in restore_speech_timestamps
+    for segment in segments:
+  File "C:\Users\ragib\AppData\Roaming\Python\Python311\site-packages\faster_whisper\transcribe.py", line 1190, in generate_segments
+    encoder_output = self.encode(segment)
+                     ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ragib\AppData\Roaming\Python\Python311\site-packages\faster_whisper\transcribe.py", line 1400, in encode
+    return self.model.encode(features, to_cpu=to_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Library cublas64_12.dll is not found or cannot be loaded
+
+[2026-08-07 14:51:48] [STT_PY] Starting Faster-Whisper Large-v3 STT Listener...
+[2026-08-07 14:51:48] [STT_PY] Found local model directory at c:\falcon\models\stt\faster-whisper-large-v3
+[2026-08-07 14:51:48] [STT_PY] Attempting to load Faster-Whisper Large-v3 (c:\falcon\models\stt\faster-whisper-large-v3) on GPU (CUDA float16)...
+[2026-08-07 14:51:54] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-07 14:51:54] [STT_PY] Retrying on GPU (CUDA int8_float16)...
+[2026-08-07 14:53:00] [STT_PY] Starting Faster-Whisper Large-v3 STT Listener...
+[2026-08-07 14:53:00] [STT_PY] Found local model directory at c:\falcon\models\stt\faster-whisper-large-v3
+[2026-08-07 14:53:00] [STT_PY] Attempting to load Faster-Whisper Large-v3 (c:\falcon\models\stt\faster-whisper-large-v3) on GPU (CUDA float16)...
+[2026-08-07 14:53:05] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-07 14:53:05] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-07 14:53:05] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-07 14:53:19] [STT_PY] Successfully initialized and verified Faster-Whisper Large-v3 on CPU.
+[2026-08-07 14:53:19] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-07 14:53:19] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-07 14:53:19] [STT_PY] Microphone audio stream started successfully.
+[2026-08-07 14:53:19] [STT_PY] Entering main audio loop...
