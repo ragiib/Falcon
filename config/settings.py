@@ -18,10 +18,10 @@ LOG_LEVEL_STR = os.getenv("LOG_LEVEL", "INFO").upper()
 LOG_LEVEL = getattr(logging, LOG_LEVEL_STR, logging.INFO)
 
 # Model Provider Configuration
-MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "placeholder") # Options: "qwen", "placeholder"
+MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "dual") # Options: "dual", "qwen", "placeholder"
 
 # Qwen specific configuration
-MODEL_PATH = os.getenv("MODEL_PATH", "/path/to/models/Qwen2.5-14B-Q4_K_M.gguf")
+MODEL_PATH = os.getenv("MODEL_PATH", r"C:\AI_Models\Qwen\Qwen2.5-7B-Instruct-Q4_K_M.gguf")
 MODEL_TEMPERATURE = float(os.getenv("MODEL_TEMPERATURE", "0.7"))
 MODEL_MAX_TOKENS = int(os.getenv("MODEL_MAX_TOKENS", "2048"))
 MODEL_TOP_P = float(os.getenv("MODEL_TOP_P", "0.9"))

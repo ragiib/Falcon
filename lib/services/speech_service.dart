@@ -20,6 +20,7 @@ class SpeechService {
   Process? _activeProcess;
   final List<String> _speechQueue = [];
   bool _isProcessingQueue = false;
+  bool _isStreamingActive = false;
   StringBuffer _tokenBuffer = StringBuffer();
 
   Future<void> init() async {
@@ -31,6 +32,7 @@ class SpeechService {
     _speechQueue.clear();
     _tokenBuffer.clear();
     _isProcessingQueue = false;
+    _isStreamingActive = false;
 
     if (_activeProcess != null) {
       try {
@@ -43,14 +45,12 @@ class SpeechService {
 
     _state = SpeechState.stopped;
     debugPrint("[Native TTS] Speech stopped & queue cleared.");
-    // Do NOT call onSpeechComplete here — stop() is an interruption,
-    // not a natural completion. Firing it here causes false state transitions
-    // (e.g., entering Listening mode before greeting even starts).
     onSpeechCancel?.call();
   }
 
   /// Appends incoming streaming LLM token for low-latency sentence-level speech
   void handleStreamingToken(String token) {
+    _isStreamingActive = true;
     _tokenBuffer.write(token);
     final text = _tokenBuffer.toString();
 
@@ -79,6 +79,12 @@ class SpeechService {
       enqueueSpeech(remaining);
     }
     _tokenBuffer.clear();
+    _isStreamingActive = false;
+    
+    // Check if sentence queue is empty and process finished
+    if (_speechQueue.isEmpty && _activeProcess == null && !_isProcessingQueue) {
+      _onSegmentComplete();
+    }
   }
 
   /// Enqueues clean text segment for native TTS playback
@@ -99,6 +105,7 @@ class SpeechService {
   /// Speaks text directly
   Future<void> speakDirect(String text) async {
     await stop();
+    _isStreamingActive = false;
     enqueueSpeech(text);
   }
 
@@ -108,11 +115,17 @@ class SpeechService {
     _isProcessingQueue = true;
     final nextText = _speechQueue.removeAt(0);
 
+    debugPrint("ENTER: speak()");
+    debugPrint("[TTS] Speaking response: $nextText");
+
     // Escape single quotes for PowerShell string literal
     final escapedText = nextText.replaceAll("'", "''");
 
     final psCommand =
         "Add-Type -AssemblyName System.Speech; \$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; \$s.Rate = 1; \$s.Speak('$escapedText')";
+
+    final stage9Start = DateTime.now();
+    debugPrint('[Voice] ENTER 9. TTS started: "$nextText"');
 
     try {
       _state = SpeechState.playing;
@@ -126,22 +139,37 @@ class SpeechService {
       final exitCode = await _activeProcess!.exitCode;
       _activeProcess = null;
 
+      final dt9 = DateTime.now().difference(stage9Start).inMilliseconds;
+      debugPrint('[Voice] EXIT 9. TTS started (Duration: ${dt9}ms)');
       debugPrint("[Native TTS] Segment finished with exit code $exitCode");
+      debugPrint("EXIT: speak()");
       _onSegmentComplete();
     } catch (e) {
       debugPrint("[Native TTS] Execution error: $e");
       _activeProcess = null;
+      debugPrint("EXIT: speak()");
       _onSegmentComplete();
     }
   }
+
+  DateTime? _ttsStartTime;
 
   void _onSegmentComplete() {
     _isProcessingQueue = false;
     if (_speechQueue.isNotEmpty) {
       _processQueue();
-    } else {
+    } else if (!_isStreamingActive && _activeProcess == null) {
       _state = SpeechState.idle;
-      onSpeechComplete?.call();
+      final stage10Start = DateTime.now();
+      debugPrint('[Voice] ENTER 10. TTS finished');
+      debugPrint('[Voice] EXIT 10. TTS finished (Duration: 0 ms)');
+      // 150ms acoustic decay tail buffer to absorb room echo reflections before unmuting mic
+      Future.delayed(const Duration(milliseconds: 150), () {
+        if (_state == SpeechState.idle && !_isStreamingActive && _speechQueue.isEmpty && _activeProcess == null) {
+          onSpeechComplete?.call();
+        }
+      });
     }
   }
 }
+

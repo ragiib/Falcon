@@ -255,6 +255,25 @@ Health Endpoint:       $HealthUrl
     Write-Log $DiagMsg "STARTUP"
     
     # ---------------------------------------------------------
+    # 6.5 Ensure Background Wake Listener Service Is Running
+    # ---------------------------------------------------------
+    Write-Log "Verifying Falcon Wake Listener background service..." "INFO"
+    $WakeScript = Join-Path $ScriptDir "scripts\falcon_wake_listener.py"
+    $IsWakeRunning = $false
+    try {
+        $tcpConn = Test-NetConnection -ComputerName "127.0.0.1" -Port 8009 -WarningAction SilentlyContinue
+        $IsWakeRunning = $tcpConn.TcpTestSucceeded
+    } catch {}
+
+    if (-not $IsWakeRunning) {
+        Write-Log "Starting Falcon Wake Listener background service..." "INFO"
+        Start-Process "pythonw.exe" -ArgumentList "`"$WakeScript`"" -WorkingDirectory $ScriptDir -WindowStyle Hidden
+        Write-Log "Falcon Wake Listener background service started." "SUCCESS"
+    } else {
+        Write-Log "Falcon Wake Listener background service is active." "SUCCESS"
+    }
+
+    # ---------------------------------------------------------
     # 7. Start Backend (with auto-recovery)
     # ---------------------------------------------------------
     $MaxBackendRestarts = 3

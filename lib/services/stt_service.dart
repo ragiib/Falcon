@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'wake_listener_client.dart';
 
 class SttService {
   static final SttService _instance = SttService._internal();
@@ -133,19 +134,45 @@ class SttService {
     }
   }
 
+  VoidCallback? onSpeechDetected;
+  VoidCallback? onEndOfSpeech;
+  VoidCallback? onSttStarted;
+
+  double lastInferenceMs = 0.0;
+  double lastAudioMs = 0.0;
+  int lastIpcTransportMs = 0;
+
   void _handleLine(String line) {
     if (line.isEmpty) return;
 
-    if (line == 'WAKE_WORD_DETECTED') {
-      debugPrint("[STT Service] WAKE WORD DETECTED!");
-      for (final cb in _wakeWordListeners) {
+    if (line == 'WAKE_WORD_DETECTED' || line.startsWith('WAKE_WORD_DETECTED:')) {
+      final matched = line.contains(':') ? line.substring(19) : 'Falcon';
+      debugPrint('[Wake] Wake phrase matched: "$matched"');
+      debugPrint('[Wake] Callback executed');
+      for (final cb in List.from(_wakeWordListeners)) {
         cb();
+      }
+    } else if (line == 'TIMING:SPEECH_DETECTED') {
+      debugPrint('[Wake] Audio received');
+      onSpeechDetected?.call();
+    } else if (line == 'TIMING:END_OF_SPEECH') {
+      onEndOfSpeech?.call();
+    } else if (line == 'TIMING:STT_STARTED') {
+      onSttStarted?.call();
+    } else if (line.startsWith('TIMING:METRICS:')) {
+      final parts = line.split(':');
+      if (parts.length >= 5) {
+        final sendTs = int.tryParse(parts[2]) ?? DateTime.now().millisecondsSinceEpoch;
+        lastInferenceMs = double.tryParse(parts[3]) ?? 0.0;
+        lastAudioMs = double.tryParse(parts[4]) ?? 0.0;
+        lastIpcTransportMs = (DateTime.now().millisecondsSinceEpoch - sendTs).clamp(0, 1000);
       }
     } else if (line.startsWith('RECOGNIZED:')) {
       final text = line.substring(11).trim();
       if (text.isNotEmpty) {
+        debugPrint('[Wake] Transcript: "$text"');
         debugPrint("[STT Service] Recognized Speech: $text");
-        for (final cb in _speechRecognizedListeners) {
+        for (final cb in List.from(_speechRecognizedListeners)) {
           cb(text);
         }
       }
@@ -154,9 +181,27 @@ class SttService {
       final vol = double.tryParse(volStr) ?? 0.0;
       // Normalize volume level (0-100) to 0.0-1.0
       final normalized = (vol / 100.0).clamp(0.0, 1.0);
-      for (final cb in _volumeUpdatedListeners) {
+      for (final cb in List.from(_volumeUpdatedListeners)) {
         cb(normalized);
       }
+    }
+  }
+
+  void pauseListening() {
+    if (_process != null && _isListening) {
+      debugPrint("[STT Service] Sending PAUSE to Python Whisper listener...");
+      _process!.stdin.writeln('PAUSE');
+    }
+    // Resume standby wake listener mic ownership
+    WakeListenerClient().resumeWakeListenerMic();
+  }
+
+  void resumeListening() {
+    // Pause standby wake listener mic to handoff ownership to Whisper STT
+    WakeListenerClient().pauseWakeListenerMic();
+    if (_process != null && _isListening) {
+      debugPrint("[STT Service] Sending RESUME to Python Whisper listener...");
+      _process!.stdin.writeln('RESUME');
     }
   }
 

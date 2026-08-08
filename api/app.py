@@ -20,7 +20,7 @@ from api.middleware import (
 from api.exceptions import APIError
 
 # Routes
-from api.routes import chat, session, health, metrics, ws
+from api.routes import chat, session, health, metrics, ws, mode, wake
 
 # Core dependencies
 from core.providers.factory import ProviderFactory
@@ -31,7 +31,7 @@ logger = get_logger("api.app")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting up API server...")
-    # Initialize the provider (lazily loads the model)
+    # Initialize the provider in default Agent Mode (instant startup, Qwen memory 0 MB)
     ProviderFactory.initialize()
     logger.info("API server startup complete.")
     
@@ -40,9 +40,6 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down API server...")
     # Gracefully close sessions
     SessionManager._sessions.clear()
-    
-    # We leave Provider unloading to OS / Python GC as llama_cpp doesn't have explicit explicit unload
-    # But we log it.
     logger.info("API server shutdown complete.")
 
 def create_app() -> FastAPI:
@@ -81,9 +78,11 @@ def create_app() -> FastAPI:
     api_v1_prefix = "/api/v1"
     app.include_router(chat.router, prefix=api_v1_prefix)
     app.include_router(session.router, prefix=api_v1_prefix)
+    app.include_router(mode.router, prefix=api_v1_prefix)
     app.include_router(health.router, prefix=api_v1_prefix)
     app.include_router(metrics.router, prefix=api_v1_prefix)
     app.include_router(ws.router, prefix=api_v1_prefix)
+    app.include_router(wake.router, prefix=api_v1_prefix)
     
     return app
 

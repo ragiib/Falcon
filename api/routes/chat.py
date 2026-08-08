@@ -56,12 +56,12 @@ async def chat_stream(
     Streaming chat endpoint.
     Returns Server-Sent Events (SSE).
     """
-    if request.session_id not in SessionManager._sessions:
-        raise SessionNotFoundError(request.session_id)
-        
+    # Auto-create session if not present to ensure seamless streaming
+    session_id = SessionManager.get_or_create(request.session_id)
+    
     def generate():
         metrics_out = {}
-        generator = ConversationEngine.chat_stream(request.session_id, request.message, metrics_out)
+        generator = ConversationEngine.chat_stream(session_id, request.message, metrics_out)
         
         for chunk in generator:
             # Yield SSE format: data: {"token": "..."}\n\n

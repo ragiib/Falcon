@@ -137,13 +137,20 @@ class QwenProvider(IModelProvider):
 
     def generate_stream(self, prompt: str, **kwargs) -> Any:
         """Generates a streaming response from the Qwen model."""
-        if self.llm is None:
-            self.load_model()
-            
         import time
+        logger.info("ENTER: callQwen()")
         logger.info("Starting streaming generation...")
         start_time = time.time()
-        
+
+        if self.llm is None:
+            try:
+                self.load_model()
+            except Exception as load_err:
+                logger.error(f"[QwenProvider] Model load failed: {load_err}")
+                yield f"[Offline AI Model Error: Unable to load weights from {settings.MODEL_PATH}] "
+                logger.info("EXIT: callQwen()")
+                return
+            
         temperature = kwargs.get("temperature", settings.MODEL_TEMPERATURE)
         max_tokens = kwargs.get("max_tokens", settings.MODEL_MAX_TOKENS)
         top_p = kwargs.get("top_p", settings.MODEL_TOP_P)
@@ -169,4 +176,6 @@ class QwenProvider(IModelProvider):
             logger.info(f"Streaming generation complete in {duration:.2f}s.")
         except Exception as e:
             logger.error(f"Streaming inference failed: {str(e)}")
-            raise InferenceError(f"Failed during streaming inference: {str(e)}") from e
+            yield f"[Inference error: {str(e)}]"
+        logger.info("EXIT: callQwen()")
+

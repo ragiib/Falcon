@@ -685,3 +685,349 @@ At line:1 char:33
     + FullyQualifiedErrorId : NativeCommandError
  
 ^C
+[2026-08-07 14:56:41] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 14:56:44] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 14:58:11] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 14:58:14] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 14:58:34] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+Launching lib\main.dart on Windows in debug mode...
+Building Windows application...                                 
+flutter : Nuget.exe not found, trying to download or use cached version.
+At line:1 char:33
++ Set-Location -Path 'C:\falcon'; flutter run -d windows 2>&1 | Tee-Obj ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Nuget.exe not f...cached version.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+^C
+[2026-08-07 15:31:53] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 15:31:56] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 15:43:49] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 15:43:52] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 15:56:55] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 15:56:59] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 16:04:51] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 16:04:54] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 16:05:35] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 16:05:38] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 16:14:15] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 16:14:19] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 16:24:40] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 16:24:43] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 16:35:47] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 16:35:50] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 17:16:57] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 17:17:01] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 17:26:46] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 17:26:50] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 17:37:02] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 17:37:05] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 17:57:39] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 17:57:42] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 17:57:59] [FAILURE] Flutter application crashed.
+
+Last Flutter Logs:
+    + CategoryInfo          : NotSpecified: (lib/services/ap...semble.vcxproj]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+C:\Program Files (x86)\Microsoft Visual 
+Studio\2022\BuildTools\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(254,5): error MSB8066: Custom build for 'C
+:\falcon\build\windows\x64\CMakeFiles\5ba11ed7be0339f80a165953ea7fedd7\flutter_windows.dll.rule;C:\falcon\build\windows
+\x64\CMakeFiles\40af3f0e4f072655aa1ec0c8ca93a675\flutter_assemble.rule' exited with code 1. 
+[C:\falcon\build\windows\x64\flutter\flutter_assemble.vcxproj]
+Building Windows application...                                    12.2s
+Error: Build process failed.
+[2026-08-07 17:59:50] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 17:59:53] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:02:47] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:02:50] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:05:04] [FAILURE] Backend process unexpectedly exited!
+[2026-08-07 18:05:14] [FAILURE] Backend process unexpectedly exited!
+[2026-08-07 18:06:06] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:06:08] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:08:43] [FAILURE] Backend process unexpectedly exited!
+[2026-08-07 18:08:52] [FAILURE] Backend process unexpectedly exited!
+[2026-08-07 18:09:56] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:09:59] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:10:52] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:10:55] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:12:30] [FAILURE] Backend process unexpectedly exited!
+[2026-08-07 18:13:56] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:13:59] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:18:43] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:18:45] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:22:17] [FAILURE] Backend process unexpectedly exited!
+[2026-08-07 18:22:40] [FAILURE] Backend process unexpectedly exited!
+[2026-08-07 18:23:36] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:23:39] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:31:31] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:31:34] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:40:50] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:40:53] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 18:48:41] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 18:48:45] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-07 22:26:29] [STARTUP] Starting Falcon AI Launcher in Development mode...
+[2026-08-07 22:26:34] [STARTUP] 
+--- Falcon Startup Diagnostics ---
+Project Root:          C:\falcon
+Detected Backend Path: C:\falcon
+Detected Flutter Path: C:\falcon
+Selected Python:       python
+Python Version:        Python 3.11.4
+Environment Type:      System Python
+Backend URL:           http://127.0.0.1:8000
+Health Endpoint:       http://127.0.0.1:8000/api/v1/health
+----------------------------------
+[2026-08-08 12:11:13] [STARTUP] Starting Falcon AI Launcher in Development mode...

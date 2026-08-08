@@ -1,0 +1,26 @@
+[2026-08-08 12:09:34] [FALCON WAKE][INFO] Starting Falcon Wake Listener Service...
+[2026-08-08 12:11:03] [FALCON WAKE][INFO] Starting Falcon Wake Listener Service...
+[2026-08-08 12:11:04] [FALCON WAKE][INFO] Falcon Always-On Standby Wake Word Listener Service active.
+[2026-08-08 12:11:04] [FALCON WAKE][SUCCESS] IPC Server listening on 127.0.0.1:8009
+[2026-08-08 12:11:04] [FALCON WAKE][SUCCESS] STATUS: STANDBY (Monitoring for 'Falcon wake up' on 127.0.0.1:8009)
+[2026-08-08 12:11:04] [FALCON WAKE][INFO] Detecting audio input devices...
+[2026-08-08 12:11:04] [FALCON WAKE][SUCCESS] Microphone Device Selected: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 12:11:05] [FALCON WAKE][SUCCESS] Audio stream started successfully on 'Microphone Array (Realtek(R) Au'. STATUS: STANDBY
+[2026-08-08 12:11:09] [FALCON WAKE][DEBUG] [Wake Detector] Speech candidate detected (1.70s, RMS 0.0028). Opening confirmation window...
+[2026-08-08 12:11:11] [FALCON WAKE][INFO] [Wake Detector] Confirmation window active. Voice segment detected — triggering wake event!
+[2026-08-08 12:11:11] [FALCON WAKE][SUCCESS] WAKE EVENT TRIGGERED! Matched phrase: 'falcon wake up'
+[2026-08-08 12:11:11] [FALCON WAKE][INFO] Microphone stream paused for handoff (mic_paused = True)
+[2026-08-08 12:11:12] [FALCON WAKE][INFO] IPC Client connected from ('127.0.0.1', 63506)
+[2026-08-08 12:11:12] [FALCON WAKE][DEBUG] IPC Received Command: {"command":"PING"}
+[2026-08-08 12:11:12] [FALCON WAKE][DEBUG] IPC Received Command: {"command":"PAUSE_MIC"}
+[2026-08-08 12:11:12] [FALCON WAKE][INFO] IPC command received: Microphone PAUSED (Handoff active)
+[2026-08-08 12:11:12] [FALCON WAKE][DEBUG] IPC Received Command: {"command":"RESUME_MIC"}
+[2026-08-08 12:11:12] [FALCON WAKE][INFO] IPC command received: Microphone RESUMED (Standby active)
+[2026-08-08 12:11:12] [FALCON WAKE][INFO] IPC Client disconnected: ('127.0.0.1', 63506)
+[2026-08-08 12:11:12] [FALCON WAKE][INFO] Falcon application is not running. Spawning launcher...
+[2026-08-08 12:11:12] [FALCON WAKE][SUCCESS] FalconLauncher.ps1 started successfully.
+[2026-08-08 12:11:13] [FALCON WAKE][DEBUG] [Wake Detector] Speech candidate detected (1.25s, RMS 0.0038). Opening confirmation window...
+[2026-08-08 12:11:14] [FALCON WAKE][INFO] [Wake Detector] Confirmation window active. Voice segment detected — triggering wake event!
+[2026-08-08 12:11:14] [FALCON WAKE][SUCCESS] WAKE EVENT TRIGGERED! Matched phrase: 'falcon wake up'
+[2026-08-08 12:11:14] [FALCON WAKE][INFO] Microphone stream paused for handoff (mic_paused = True)
+[2026-08-08 12:11:14] [FALCON WAKE][DEBUG] Could not POST to backend API (non-fatal): HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/v1/wake/trigger (Caused by ConnectTimeoutError(<HTTPConnection(host='127.0.0.1', port=8000) at 0x232f330d150>, 'Connection to 127.0.0.1 timed out. (connect timeout=2.0)'))

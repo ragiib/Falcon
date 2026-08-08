@@ -1,5 +1,5 @@
 """
-End-to-End Verification script for Qwen 2.5 14B Q4_K_M model integration.
+End-to-End Verification script for Qwen 2.5 7B Q4_K_M model integration.
 """
 import sys
 import os

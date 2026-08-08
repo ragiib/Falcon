@@ -47,8 +47,17 @@ class SessionDeleteResponseData(BaseModel):
     deleted: bool
 
 # -----------------------------------------------------------------------------
-# Health and Metrics Schemas
+# Operating Mode Schemas
 # -----------------------------------------------------------------------------
+class ModeRequest(BaseModel):
+    mode: str = Field(..., description="Target operating mode: 'agent' or 'offline_ai'")
+
+class ModeResponseData(BaseModel):
+    mode: str
+    status: str
+    qwen_loaded: bool
+    internet_available: bool
+
 class HealthResponseData(BaseModel):
     status: str
     uptime_seconds: float
@@ -64,3 +73,16 @@ class MetricsResponseData(BaseModel):
     # Memory stats placeholders
     ram_usage_mb: Optional[float] = None
     vram_usage_mb: Optional[float] = None
+
+# -----------------------------------------------------------------------------
+# Wake Word & IPC Schemas
+# -----------------------------------------------------------------------------
+class WakeEventRequest(BaseModel):
+    phrase: str = Field(default="falcon wake up", description="The detected wake phrase")
+    source: str = Field(default="wake_listener", description="Source component")
+    timestamp: Optional[int] = None
+
+class WakeResponseData(BaseModel):
+    status: str
+    action: str
+

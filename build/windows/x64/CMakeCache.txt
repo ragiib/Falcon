@@ -231,15 +231,8 @@ FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
 //Enables QUIET option for all content population
 FETCHCONTENT_QUIET:BOOL=ON
 
-//When not empty, overrides where to find pre-populated content
-// for nuget
-FETCHCONTENT_SOURCE_DIR_NUGET:PATH=
-
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
-
-//Enables UPDATE_DISCONNECTED behavior just for population of nuget
-FETCHCONTENT_UPDATES_DISCONNECTED_NUGET:BOOL=OFF
 
 //No help, variable specified on the command line.
 FLUTTER_TARGET_PLATFORM:UNINITIALIZED=windows-x64
@@ -252,7 +245,7 @@ JAVA_INCLUDE_PATH2:PATH=C:/falcon/windows/flutter/ephemeral/.plugin_symlinks/jni
 JAVA_JVM_LIBRARY:FILEPATH=JAVA_JVM_LIBRARY-NOTFOUND
 
 //Path to a program.
-NUGET:FILEPATH=NUGET-NOTFOUND
+NUGET:FILEPATH=C:/flutter/bin/nuget.exe
 
 //Value Computed by CMake
 bitsdojo_window_windows_BINARY_DIR:STATIC=C:/falcon/build/windows/x64/plugins/bitsdojo_window_windows
