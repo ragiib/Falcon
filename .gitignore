@@ -7,3 +7,5 @@ venv/
 .DS_Store
 .vscode/
 .idea/
+
+models/stt/faster-whisper-large-v3/model.bin
