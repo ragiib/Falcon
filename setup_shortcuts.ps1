@@ -50,12 +50,12 @@ $Shortcut.Save()
 # 3. Windows Startup Folder Shortcut (Always-On Background Service)
 $StartupFolder = [Environment]::GetFolderPath("Startup")
 $StartupShortcut = Join-Path $StartupFolder "Falcon Always-On Background Service.lnk"
-$WakeListenerScript = Join-Path $ScriptDir "scripts\falcon_wake_listener.py"
+$WakeVbsScript = Join-Path $ScriptDir "scripts\run_wake_listener.vbs"
 
 Write-Host "Creating Windows Startup Autostart Shortcut: $StartupShortcut"
 $Shortcut = $WshShell.CreateShortcut($StartupShortcut)
-$Shortcut.TargetPath = "pythonw.exe"
-$Shortcut.Arguments = "`"$WakeListenerScript`""
+$Shortcut.TargetPath = "wscript.exe"
+$Shortcut.Arguments = "`"$WakeVbsScript`""
 $Shortcut.WorkingDirectory = $ScriptDir
 $Shortcut.IconLocation = $IconPath
 $Shortcut.Description = "Falcon Always-On Wake Word Background Service"

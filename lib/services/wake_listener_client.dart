@@ -29,7 +29,7 @@ class WakeListenerClient {
         _isConnected = true;
         debugPrint("[WakeListenerClient] Connected to background wake listener service on port 8009.");
 
-        _socket!.transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
+        _socket!.cast<List<int>>().transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
           _handleLine(line.trim());
         }, onError: (err) {
           debugPrint("[WakeListenerClient] Socket error: $err");
@@ -71,7 +71,6 @@ class WakeListenerClient {
         doWhenWindowReady(() {
           appWindow.restore();
           appWindow.show();
-          appWindow.focus();
         });
 
         onWakeWordDetected?.call();

@@ -4394,3 +4394,232 @@ Audio: 650 ms | Queue latency: 603 ms
 [2026-08-07 22:28:01] [STT_PY] [Latency] Preprocess (NS+AGC): 1.3 ms
 [2026-08-07 22:28:01] [STT_PY] ENTER: transcribe()
 [2026-08-07 22:28:01] [STT_PY] [Stage 6] Whisper transcription started
+[2026-08-08 12:33:33] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 12:33:34] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 12:33:34] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 12:33:36] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 12:33:36] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 12:33:36] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 12:33:38] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 12:33:38] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 12:33:38] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 12:33:38] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 12:33:38] [STT_PY] Entering main audio loop...
+[2026-08-08 12:33:38] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:33:40] [STT_PY] [Wake] Audio frames continuously being received (total: 40)
+[2026-08-08 12:33:40] [STT_PY] [Wake] Audio RMS: 0.0103, Vol: 4.1
+[2026-08-08 12:33:40] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 12:33:42] [STT_PY] [Wake] Audio frames continuously being received (total: 81)
+[2026-08-08 12:33:42] [STT_PY] [Wake] Audio RMS: 0.0116, Vol: 4.6
+[2026-08-08 12:33:42] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 12:33:43] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:33:43] [STT_PY] [Latency] VAD speech duration: 4351 ms
+[2026-08-08 12:33:43] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 12:33:43] [STT_PY] EXIT: dispatchTranscription()
+[2026-08-08 12:33:43] [STT_PY] ENTER: processAudioSegment() | Audio: 4400 ms | Queue latency: 4352 ms
+[2026-08-08 12:33:43] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:33:44] [STT_PY] [Wake] Audio frames continuously being received (total: 121)
+[2026-08-08 12:33:44] [STT_PY] [Wake] Audio RMS: 0.0047, Vol: 1.9
+[2026-08-08 12:33:44] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 12:33:46] [STT_PY] [Wake] Audio frames continuously being received (total: 162)
+[2026-08-08 12:33:46] [STT_PY] [Wake] Audio RMS: 0.0137, Vol: 5.5
+[2026-08-08 12:33:46] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 12:33:47] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:33:47] [STT_PY] [Latency] VAD speech duration: 4351 ms
+[2026-08-08 12:33:47] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 12:39:38] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 12:39:39] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 12:39:39] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 12:39:41] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 12:39:41] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 12:39:41] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 12:39:43] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 12:39:43] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 12:39:43] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 12:39:43] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 12:39:43] [STT_PY] Entering main audio loop...
+[2026-08-08 12:39:43] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:39:44] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:39:44] [STT_PY] [Latency] VAD speech duration: 1080 ms
+[2026-08-08 12:39:44] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 12:39:44] [STT_PY] EXIT: dispatchTranscription()
+[2026-08-08 12:39:44] [STT_PY] ENTER: processAudioSegment() | Audio: 1100 ms | Queue latency: 1082 ms
+[2026-08-08 12:39:44] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:39:45] [STT_PY] [Wake] Audio frames continuously being received (total: 39)
+[2026-08-08 12:39:45] [STT_PY] [Wake] Audio RMS: 0.0037, Vol: 1.5
+[2026-08-08 12:39:45] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 12:39:45] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:39:45] [STT_PY] [Latency] VAD speech duration: 749 ms
+[2026-08-08 12:39:45] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 12:50:51] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 12:50:52] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 12:50:52] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 12:50:54] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 12:50:54] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 12:50:54] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 12:50:56] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 12:50:56] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 12:50:56] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 12:50:56] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 12:50:56] [STT_PY] Entering main audio loop...
+[2026-08-08 12:50:56] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:50:57] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:50:57] [STT_PY] [Latency] VAD speech duration: 1051 ms
+[2026-08-08 12:50:57] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 12:50:57] [STT_PY] EXIT: dispatchTranscription()
+Audio: 1100 ms | Queue latency: 1052 ms
+[2026-08-08 12:50:58] [STT_PY] [Wake] Audio frames continuously being received (total: 41)
+[2026-08-08 12:50:58] [STT_PY] [Wake] Audio RMS: 0.0028, Vol: 1.1
+[2026-08-08 12:50:58] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 12:50:59] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:50:59] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:50:59] [STT_PY] [Latency] VAD speech duration: 751 ms
+[2026-08-08 12:50:59] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 12:56:35] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 12:56:36] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 12:56:36] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 12:56:38] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 12:56:38] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 12:56:38] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 12:56:40] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 12:56:40] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 12:56:40] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 12:56:40] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 12:56:40] [STT_PY] Entering main audio loop...
+[2026-08-08 12:56:40] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:56:41] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:56:41] [STT_PY] [Latency] VAD speech duration: 850 ms
+[2026-08-08 12:56:41] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 12:56:41] [STT_PY] ENTER: processAudioSegment() | Audio: 900 ms | Queue latency: 852 ms
+[2026-08-08 12:56:41] [STT_PY] [Voice] Speech Started
+[2026-08-08 12:56:42] [STT_PY] [Wake] Audio frames continuously being received (total: 40)
+[2026-08-08 12:56:42] [STT_PY] [Wake] Audio RMS: 0.0069, Vol: 2.8
+[2026-08-08 12:56:42] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 12:56:43] [STT_PY] [Voice] Speech Ended
+[2026-08-08 12:56:43] [STT_PY] [Latency] VAD speech duration: 1501 ms
+[2026-08-08 12:56:43] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:15:22] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 13:15:22] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 13:15:22] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 13:15:24] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 13:15:24] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 13:15:24] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 13:15:26] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 13:15:26] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 13:15:26] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 13:15:26] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 13:15:26] [STT_PY] Entering main audio loop...
+[2026-08-08 13:15:26] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:15:28] [STT_PY] [Wake] Audio frames continuously being received (total: 40)
+[2026-08-08 13:15:28] [STT_PY] [Wake] Audio RMS: 0.0290, Vol: 11.6
+[2026-08-08 13:15:28] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 13:15:28] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:15:28] [STT_PY] [Latency] VAD speech duration: 2200 ms
+[2026-08-08 13:15:28] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:15:28] [STT_PY] ENTER: processAudioSegment() | Audio: 2250 ms | Queue latency: 2202 ms
+[2026-08-08 13:15:28] [STT_PY] EXIT: dispatchTranscription()
+[2026-08-08 13:15:29] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:15:30] [STT_PY] [Wake] Audio frames continuously being received (total: 80)
+[2026-08-08 13:15:30] [STT_PY] [Wake] Audio RMS: 0.0280, Vol: 11.2
+[2026-08-08 13:15:30] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 13:15:30] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:15:30] [STT_PY] [Latency] VAD speech duration: 1701 ms
+[2026-08-08 13:15:30] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:24:27] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 13:24:27] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 13:24:27] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 13:24:28] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 13:24:28] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 13:24:28] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 13:24:30] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 13:24:30] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 13:24:30] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 13:24:30] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 13:24:30] [STT_PY] Entering main audio loop...
+[2026-08-08 13:24:31] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:24:32] [STT_PY] [Wake] Audio frames continuously being received (total: 40)
+[2026-08-08 13:24:32] [STT_PY] [Wake] Audio RMS: 0.0115, Vol: 4.6
+[2026-08-08 13:24:32] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 13:24:34] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:24:34] [STT_PY] [Latency] VAD speech duration: 3751 ms
+[2026-08-08 13:24:34] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:24:34] [STT_PY] ENTER: processAudioSegment() | Audio: 3800 ms | Queue latency: 3753 ms
+[2026-08-08 13:24:34] [STT_PY] EXIT: dispatchTranscription()
+[2026-08-08 13:24:34] [STT_PY] [Wake] Audio frames continuously being received (total: 80)
+[2026-08-08 13:24:34] [STT_PY] [Wake] Audio RMS: 0.0034, Vol: 1.3
+[2026-08-08 13:24:34] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 13:24:35] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:24:35] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:24:35] [STT_PY] [Latency] VAD speech duration: 351 ms
+[2026-08-08 13:24:35] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:49:49] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 13:49:50] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 13:49:50] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 13:49:51] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 13:49:51] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 13:49:51] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 13:49:53] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 13:49:53] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 13:49:53] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 13:49:54] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 13:49:54] [STT_PY] Entering main audio loop...
+[2026-08-08 13:49:54] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:49:56] [STT_PY] [Wake] Audio frames continuously being received (total: 40)
+[2026-08-08 13:49:56] [STT_PY] [Wake] Audio RMS: 0.0045, Vol: 1.8
+[2026-08-08 13:49:56] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 13:49:56] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:49:56] [STT_PY] [Latency] VAD speech duration: 1501 ms
+[2026-08-08 13:49:56] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:49:56] [STT_PY] ENTER: processAudioSegment() | Audio: 1550 ms | Queue latency: 1504 ms
+[2026-08-08 13:49:56] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:49:56] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:49:56] [STT_PY] [Latency] VAD speech duration: 301 ms
+[2026-08-08 13:49:56] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:54:57] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 13:54:58] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 13:54:58] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 13:54:59] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 13:54:59] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 13:54:59] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 13:55:01] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 13:55:01] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 13:55:01] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 13:55:01] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 13:55:01] [STT_PY] Entering main audio loop...
+[2026-08-08 13:55:01] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:55:02] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:55:02] [STT_PY] [Latency] VAD speech duration: 502 ms
+[2026-08-08 13:55:02] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 13:55:02] [STT_PY] EXIT: dispatchTranscription()
+[2026-08-08 13:55:02] [STT_PY] ENTER: processAudioSegment() | Audio: 550 ms | Queue latency: 504 ms
+[2026-08-08 13:55:02] [STT_PY] [Voice] Speech Started
+[2026-08-08 13:55:02] [STT_PY] [Voice] Speech Ended
+[2026-08-08 13:55:02] [STT_PY] [Latency] VAD speech duration: 351 ms
+[2026-08-08 13:55:02] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 14:00:27] [STT_PY] [Wake] Wake-word service starts.
+[2026-08-08 14:00:27] [STT_PY] Loading Faster-Whisper Base.en for real-time low-latency performance with higher accuracy...
+[2026-08-08 14:00:27] [STT_PY] Attempting to load Faster-Whisper Base.en (base.en) on GPU (CUDA float16)...
+[2026-08-08 14:00:28] [STT_PY] GPU CUDA float16 load/warmup failed: Library cublas64_12.dll is not found or cannot be loaded
+[2026-08-08 14:00:28] [STT_PY] CUDA library error detected. Skipping GPU retries and falling directly back to CPU.
+[2026-08-08 14:00:28] [STT_PY] Falling back to CPU (int8, 4 threads)...
+[2026-08-08 14:00:30] [STT_PY] Successfully initialized and verified Faster-Whisper Base.en on CPU.
+[2026-08-08 14:00:30] [STT_PY] Model ready on CPU (int8). Signal STT_INITIALIZED to host.
+[2026-08-08 14:00:30] [STT_PY] Microphone Device Found: 'Microphone Array (Realtek(R) Au' (Channels: 2, Sample Rate: 44100.0 Hz)
+[2026-08-08 14:00:30] [STT_PY] [Wake] Microphone device opened successfully: 'Microphone Array (Realtek(R) Au'
+[2026-08-08 14:00:30] [STT_PY] Entering main audio loop...
+[2026-08-08 14:00:30] [STT_PY] [Voice] Speech Started
+[2026-08-08 14:00:32] [STT_PY] [Wake] Audio frames continuously being received (total: 33)
+[2026-08-08 14:00:32] [STT_PY] [Wake] Audio RMS: 0.0061, Vol: 2.4
+[2026-08-08 14:00:32] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 14:00:33] [STT_PY] [Voice] Speech Ended
+[2026-08-08 14:00:33] [STT_PY] [Latency] VAD speech duration: 2685 ms
+[2026-08-08 14:00:33] [STT_PY] ENTER: dispatchTranscription()
+[2026-08-08 14:00:33] [STT_PY] EXIT: dispatchTranscription()
+[2026-08-08 14:00:33] [STT_PY] ENTER: processAudioSegment() | Audio: 2400 ms | Queue latency: 2687 ms
+[2026-08-08 14:00:33] [STT_PY] [Voice] Speech Started
+[2026-08-08 14:00:34] [STT_PY] [Wake] Audio frames continuously being received (total: 73)
+[2026-08-08 14:00:34] [STT_PY] [Wake] Audio RMS: 0.0243, Vol: 9.7
+[2026-08-08 14:00:34] [STT_PY] [Latency] Queue depth: 0, Batch size: 1
+[2026-08-08 14:00:35] [STT_PY] [Voice] Speech Ended
+[2026-08-08 14:00:35] [STT_PY] [Latency] VAD speech duration: 2750 ms
+[2026-08-08 14:00:35] [STT_PY] ENTER: dispatchTranscription()
