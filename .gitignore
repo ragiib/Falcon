@@ -1,11 +1,108 @@
+# ==============================================================================
+# Environment & Secrets
+# ==============================================================================
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*.secret
+
+# ==============================================================================
+# Python Caches & Virtual Environments
+# ==============================================================================
 __pycache__/
+*.py[cod]
+*$py.class
 .pytest_cache/
+.coverage
+htmlcov/
 .venv/
 venv/
-*.pyc
-.DS_Store
+ENV/
+env/
+*.egg-info/
+.dist/
+dist/
+
+# ==============================================================================
+# Flutter / Dart Generated Files & Build Artifacts
+# ==============================================================================
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+app.*.symbols
+*.tar.gz
+*.part
+*.script
+
+# ==============================================================================
+# AI Models, Weights, Hugging Face Caches & Locks
+# (Prevents model weights, HF caches, and locks from entering Git history)
+# ==============================================================================
+models/*/**
+!models/*.py
+!models/**/__init__.py
+!models/**/*.py
+!models/**/*.gitkeep
+
+# Model weights & binary artifacts
+*.bin
+*.safetensors
+*.onnx
+*.pt
+*.pth
+*.gguf
+*.tflite
+*.h5
+*.ckpt
+*.ot
+*.engine
+
+# Hugging Face & Download Caches, Locks, & Temp Downloads
+.cache/
+.locks/
+CACHEDIR.TAG
+*.lock
+*.metadata
+*.incomplete
+*.download
+
+# ==============================================================================
+# Runtime Data, Databases & Logs
+# ==============================================================================
+logs/*.log
+logs/**/*.log
+!logs/.gitkeep
+*.log
+
+memory/*.json
+!memory/.gitkeep
+
+# ==============================================================================
+# IDEs, Editors & OS Files
+# ==============================================================================
 .vscode/
 .idea/
+*.iml
+*.ipr
+*.iws
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
+desktop.ini
 
-models/stt/faster-whisper-large-v3/model.bin
+# Executable Installers & Local Executables
+vs_buildtools.exe
+*.exe
+
+# Personal / Temporary Notes
+notes.txt
+initialize.md
