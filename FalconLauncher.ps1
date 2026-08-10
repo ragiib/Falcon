@@ -261,8 +261,8 @@ Health Endpoint:       $HealthUrl
     $WakeScript = Join-Path $ScriptDir "scripts\falcon_wake_listener.py"
     $IsWakeRunning = $false
     try {
-        $tcpConn = Test-NetConnection -ComputerName "127.0.0.1" -Port 8009 -WarningAction SilentlyContinue
-        $IsWakeRunning = $tcpConn.TcpTestSucceeded
+        $proc = Get-CimInstance Win32_Process -Filter "CommandLine LIKE '%falcon_wake_listener.py%'" -ErrorAction SilentlyContinue
+        if ($proc) { $IsWakeRunning = $true }
     } catch {}
 
     if (-not $IsWakeRunning) {

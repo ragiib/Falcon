@@ -60,12 +60,15 @@ class WakeListenerClient {
 
   void _handleLine(String line) {
     if (line.isEmpty) return;
+    debugPrint("[COLD TRACE] 7 RAW IPC MESSAGE RECEIVED: $line");
     try {
       final jsonMap = json.decode(line);
       final event = jsonMap['event'];
       if (event == 'WAKE_WORD_DETECTED') {
+        debugPrint("[COLD TRACE] 8 WAKE_WORD_DETECTED PARSED");
         final phrase = jsonMap['phrase'] ?? 'falcon wake up';
-        debugPrint("[WakeListenerClient] WAKE_WORD_DETECTED event received: '$phrase'");
+        debugPrint("[WAKE TRACE] Flutter received WAKE_WORD_DETECTED");
+        debugPrint("[COLD WAKE 001] Flutter received WAKE_WORD_DETECTED: '$phrase'");
 
         // Bring Falcon UI to foreground
         doWhenWindowReady(() {
@@ -73,6 +76,9 @@ class WakeListenerClient {
           appWindow.show();
         });
 
+        debugPrint("[COLD TRACE] 9 Calling onWakeWordDetected");
+        debugPrint("[WAKE TRACE] Calling onWakeWordDetected()");
+        debugPrint("[COLD WAKE 001] Calling onWakeWordDetected()");
         onWakeWordDetected?.call();
       }
     } catch (e) {

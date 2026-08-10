@@ -29,30 +29,24 @@ class VoiceController {
   VoidCallback? onModeChanged;
 
   /// Triggered when wake word "Falcon" is detected or activation key/button pressed
-  Future<void> activate({String greeting = "Yes, sir. How can I assist you today?"}) async {
+  Future<void> activate({String greeting = "Yes, sir."}) async {
     _continuousListeningTimer?.cancel();
     _mode = VoiceMode.greeting;
     onModeChanged?.call();
 
-    // STAGE 13: VoiceController state changed to GREETING
-    debugPrint("ENTER: activate()");
-    debugPrint("[Stage 13] VoiceController state changed to GREETING");
-    debugPrint("[Wake] State changed to GREETING");
-    debugPrint("[VoiceController] STATUS: GREETING");
-
-    // STAGE 14: Greeting TTS started
-    debugPrint("[Stage 14] Greeting TTS started: \"$greeting\"");
-    debugPrint("[Wake] Greeting TTS started");
+    debugPrint("[WAKE TRACE] VoiceController.activate() ENTERED");
+    debugPrint("[COLD WAKE 001] VoiceController.activate()");
+    debugPrint("[WAKE TRACE] State transition: VoiceMode -> GREETING");
+    debugPrint("[COLD WAKE 001] Greeting started: \"$greeting\"");
+    debugPrint("[WAKE TRACE] Greeting TTS started: \"$greeting\"");
     _speechService.speakDirect(greeting);
-    debugPrint("EXIT: activate()");
   }
 
   /// Called when TTS finishes speaking (greeting or response)
   void notifySpeechFinished() {
-    debugPrint("[VoiceController] Speech finished. Current mode: $_mode");
+    debugPrint("[WAKE TRACE] Function: VoiceController.notifySpeechFinished() | Current mode: $_mode");
     if (_mode == VoiceMode.greeting || _mode == VoiceMode.speaking) {
-      // STAGE 15: Greeting TTS finished
-      debugPrint("[Stage 15] Greeting TTS finished. Entering listening mode.");
+      debugPrint("[WAKE TRACE] Greeting/Response TTS finished. Transitioning to ACTIVE LISTENING mode.");
       _enterListeningMode();
     }
   }
@@ -62,14 +56,11 @@ class VoiceController {
     _mode = VoiceMode.listening;
     onModeChanged?.call();
 
-    // STAGE 16: Listening mode entered
-    debugPrint("ENTER: enterListeningMode()");
-    debugPrint("[Stage 16] Listening mode entered — STT active, 10s command window open");
-    debugPrint("[Wake] State changed to LISTENING");
-    debugPrint("[Wake] STT enters Listening mode after greeting");
-    debugPrint("[VoiceController] STATUS: LISTENING (10s command & follow-up window active)");
+    debugPrint("[WAKE TRACE] VoiceController._enterListeningMode()");
+    debugPrint("[COLD WAKE 001] ACTIVE_LISTENING");
+    debugPrint("[WAKE TRACE] State transition: VoiceMode -> ACTIVE_LISTENING");
+    debugPrint("[WAKE TRACE] Unpausing Whisper STT command listener (10s window open)");
     SttService().resumeListening();
-    debugPrint("EXIT: enterListeningMode()");
 
     _continuousListeningTimer = Timer(const Duration(seconds: 10), () {
       if (_mode == VoiceMode.listening) {
@@ -115,8 +106,8 @@ class VoiceController {
     Timer(const Duration(milliseconds: 500), () {
       _mode = VoiceMode.wakeWordDetection;
       onModeChanged?.call();
-      SttService().resumeListening();
-      debugPrint("[VoiceController] STATUS: WAKE WORD DETECTION (Monitoring for 'Falcon')");
+      SttService().pauseListening();
+      debugPrint("[VoiceController] STATUS: WAKE WORD DETECTION (Monitoring for 'Falcon wake up')");
     });
   }
 }

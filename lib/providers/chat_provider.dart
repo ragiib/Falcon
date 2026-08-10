@@ -90,13 +90,14 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       // Start IPC client listening for background wake listener service events
       final wakeClient = WakeListenerClient();
       wakeClient.onWakeWordDetected = () {
+        debugPrint("[COLD TRACE] 10 onWakeWordDetected ENTERED");
         PipelineTiming.startTurn();
         PipelineTiming.mark("1. Wake Word Detected (Background Service)");
         final currentAiState = ref.read(aiStateProvider);
-        debugPrint("[ChatNotifier] Background Service WAKE WORD TRIGGERED in state: $currentAiState");
-        if (!_isProcessingRequest && (currentAiState == AiState.wakeWordDetection || currentAiState == AiState.returningToSleep)) {
-          activateVoiceAssistant();
-        }
+        debugPrint("[COLD TRACE] 11 Calling activateVoiceAssistant");
+        debugPrint("[WAKE TRACE] Calling activateVoiceAssistant()");
+        debugPrint("[COLD WAKE 001] Calling activateVoiceAssistant() | state: $currentAiState");
+        activateVoiceAssistant();
       };
       wakeClient.start();
     } catch (e) {
@@ -130,12 +131,7 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       debugPrint("ENTER: wakeCallback()");
       debugPrint("[Stage 12] Wake callback received by Flutter. Current AiState: $currentAiState | isProcessing: $_isProcessingRequest");
       debugPrint("[ChatNotifier] WAKE WORD TRIGGERED in state: $currentAiState");
-      if (!_isProcessingRequest && (currentAiState == AiState.wakeWordDetection || currentAiState == AiState.returningToSleep)) {
-        debugPrint("[Stage 12] Guard PASSED — calling activateVoiceAssistant()");
-        activateVoiceAssistant();
-      } else {
-        debugPrint("[Stage 12] Guard BLOCKED — isProcessing=$_isProcessingRequest, state=$currentAiState (need wakeWordDetection or returningToSleep)");
-      }
+      activateVoiceAssistant();
       debugPrint("EXIT: wakeCallback()");
     });
 
@@ -196,7 +192,6 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       PipelineTiming.mark("3. Greeting / Speech Output Finished");
       PipelineTiming.mark("4. Microphone Listening Activated");
       _isProcessingRequest = false;
-      _sttService.resumeListening();
       _voiceController.notifySpeechFinished();
     };
 
@@ -243,12 +238,16 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
 
   /// Triggers wake-word activation greeting ("Falcon")
   Future<void> activateVoiceAssistant() async {
-    // Guard: prevent repeated activations while already active/greeting/speaking
+    debugPrint("[COLD TRACE] 12 activateVoiceAssistant ENTERED");
     final currentState = ref.read(aiStateProvider);
-    if (currentState != AiState.wakeWordDetection && currentState != AiState.returningToSleep) {
-      debugPrint('[ChatNotifier] Activation blocked — already in state: $currentState');
+    debugPrint("[COLD TRACE] Current AiState = $currentState");
+    debugPrint("[WAKE TRACE] activateVoiceAssistant() ENTERED");
+    debugPrint("[COLD WAKE 001] activateVoiceAssistant() ENTERED");
+    if (_isProcessingRequest || currentState == AiState.processingRequest || currentState == AiState.thinking || currentState == AiState.generating) {
+      debugPrint('[WAKE TRACE] activateVoiceAssistant() BLOCKED — request currently processing in state: $currentState');
       return;
     }
+    debugPrint('[WAKE TRACE] State transition: $currentState -> GREETING');
     await _speechService.stop();
     await _voiceController.activate();
   }

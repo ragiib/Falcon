@@ -114,11 +114,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: GestureDetector(
                   onTap: () {
                     // Tap on central Arc Reactor activates Falcon Voice Assistant
-                    // Guard: only activate when in idle state
+                    debugPrint("[ACTIVATION TRACE] UI TAP RECEIVED on FalconCore Arc Reactor");
                     final currentState = ref.read(aiStateProvider);
-                    if (currentState == AiState.wakeWordDetection || currentState == AiState.returningToSleep) {
-                      ref.read(chatProvider.notifier).activateVoiceAssistant();
-                    }
+                    debugPrint("[ACTIVATION TRACE] Function: home_screen.onTap() | State: $currentState");
+                    ref.read(chatProvider.notifier).activateVoiceAssistant();
                   },
                   child: const FalconCore(size: 560),
                 ),

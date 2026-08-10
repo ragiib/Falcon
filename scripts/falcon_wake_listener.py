@@ -75,6 +75,9 @@ client_sockets = []
 client_sockets_lock = threading.Lock()
 audio_queue = queue.Queue()
 last_activation_ts = 0.0
+pending_wake_event = False
+last_matched_phrase = "falcon wake up"
+cold_wake_id = 0  # Monotonic counter incremented on each cold-start wake cycle
 
 def transition_to(new_state: str):
     global current_state
@@ -83,7 +86,7 @@ def transition_to(new_state: str):
         current_state = new_state
 
 def return_to_standby(reason: str = "Falcon session ended"):
-    global mic_paused, pending_confirmation_ts, current_state, mic_status, wake_stt_model
+    global mic_paused, pending_confirmation_ts, current_state, mic_status, wake_stt_model, pending_wake_event
     if current_state == "STANDBY" and not mic_paused:
         return
 
@@ -93,6 +96,7 @@ def return_to_standby(reason: str = "Falcon session ended"):
     log("[FALCON WAKE] Resuming wake listener microphone", "INFO")
 
     mic_paused = False
+    pending_wake_event = False
     pending_confirmation_ts = 0.0
 
     # Flush audio queue
@@ -115,12 +119,12 @@ def session_monitor_loop():
             time.sleep(1.0)
             if mic_paused or current_state in ["ACTIVE", "ACTIVATING", "WAKE_DETECTED"]:
                 now = time.time()
-                # 5s grace period following launch
-                if (now - last_activation_ts) >= 5.0:
+                # 45s grace period following launch to allow cold-boot launcher, API startup & Flutter IPC connect
+                if (now - last_activation_ts) >= 45.0:
                     with client_sockets_lock:
                         has_active_clients = len(client_sockets) > 0
                     if not has_active_clients and not is_falcon_running():
-                        return_to_standby("Falcon session ended")
+                        return_to_standby("Falcon session ended (no active clients & process terminated)")
         except Exception as err:
             log(f"Session monitor exception: {err}", "DEBUG")
 
@@ -212,17 +216,8 @@ def preprocess_audio(audio_np):
     return audio_np
 
 def is_falcon_running() -> bool:
-    """Checks whether the Falcon backend API or UI is running and healthy."""
+    """Checks whether the Falcon Flutter UI process (falcon.exe) is currently running."""
     if HAS_NET_LIBS:
-        try:
-            resp = requests.get(HEALTH_URL, timeout=1.0)
-            if resp.status_code == 200:
-                data = resp.json()
-                if data.get("success") is True:
-                    return True
-        except Exception:
-            pass
-
         try:
             for proc in psutil.process_iter(['name', 'cmdline']):
                 try:
@@ -252,31 +247,42 @@ def launch_falcon_if_needed(reason: str = "WAKE_WORD_DETECTED"):
         log(f"Launch request blocked: reason '{reason}' is not an authorized launch event.", "WARN")
         return
 
-    log(f"Launch reason: {reason}", "INFO")
-    if not is_falcon_running():
-        log("Falcon application is not running. Spawning launcher...", "INFO")
+    log("[COLD TRACE] 3 ENTER launch_falcon_if_needed()", "INFO")
+    log("[COLD TRACE] 4 Checking whether Falcon is already running", "INFO")
+    running = is_falcon_running()
+    log(f"[COLD TRACE] 5 Falcon running = {str(running).lower()}", "INFO")
+
+    if not running:
+        log("[COLD TRACE] 6 Starting FalconLauncher.ps1", "INFO")
         try:
-            subprocess.Popen([
+            proc = subprocess.Popen([
                 "powershell.exe",
                 "-ExecutionPolicy", "Bypass",
                 "-WindowStyle", "Normal",
                 "-File", FALCON_LAUNCHER
             ])
-            log("FalconLauncher.ps1 started successfully.", "SUCCESS")
+            log(f"[COLD TRACE] 7 PowerShell process started successfully | PID={proc.pid}", "SUCCESS")
+            log("[COLD TRACE] 8 Waiting for Flutter IPC client on port 8009", "INFO")
         except Exception as e:
-            log(f"Failed to launch Falcon application: {e}", "ERROR")
+            log(f"[COLD TRACE] ERROR Starting FalconLauncher.ps1: {e}", "ERROR")
+            log(f"[COLD TRACE] Stderr/Exception: {traceback.format_exc()}", "ERROR")
     else:
-        log("Falcon application is already running.", "INFO")
+        log("Falcon application UI is already running.", "INFO")
+        log("[COLD TRACE] 8 Waiting for Flutter IPC client on port 8009", "INFO")
 
 def broadcast_ipc_event(event_dict: dict):
     """Sends JSON IPC message to all connected clients (Flutter / Backend)."""
     payload = (json.dumps(event_dict) + "\n").encode('utf-8')
     with client_sockets_lock:
+        client_count = len(client_sockets)
+        log(f"[WAKE TRACE] Sending WAKE_WORD_DETECTED to Flutter clients (count={client_count})", "INFO")
         dead_sockets = []
         for s in client_sockets:
             try:
                 s.sendall(payload)
-            except Exception:
+                log("[WAKE TRACE] WAKE_WORD_DETECTED sent successfully over active socket", "SUCCESS")
+            except Exception as e:
+                log(f"[WAKE TRACE] Send error to client: {e}", "WARN")
                 dead_sockets.append(s)
         for ds in dead_sockets:
             if ds in client_sockets:
@@ -288,7 +294,13 @@ def broadcast_ipc_event(event_dict: dict):
 
 def trigger_wake_event(phrase: str):
     """Executes activation handshake: releases mic, notifies IPC clients & API endpoint."""
-    global mic_paused, last_activation_ts
+    global mic_paused, last_activation_ts, pending_wake_event, last_matched_phrase, cold_wake_id
+
+    cold_wake_id += 1
+    log("[COLD TRACE] 1 WAKE DETECTED", "SUCCESS")
+    pending_wake_event = True
+    last_matched_phrase = phrase
+    log("[COLD TRACE] 2 pending_wake_event = True", "INFO")
 
     transition_to("WAKE_DETECTED")
     transition_to("ACTIVATING")
@@ -313,13 +325,12 @@ def trigger_wake_event(phrase: str):
     # 1. Pause microphone capture for handoff to main app STT
     mic_paused = True
     last_activation_ts = time.time()
-    log("Microphone stream paused for handoff (mic_paused = True)", "INFO")
 
     # 2. Single instance check & launch if closed
     launch_reason = "MANUAL_TRIGGER" if phrase == "manual_trigger" else "WAKE_WORD_DETECTED"
     launch_falcon_if_needed(reason=launch_reason)
 
-    # 3. Broadcast IPC event over socket
+    # 3. Broadcast IPC event over socket (to already-connected clients, if any)
     event_data = {
         "event": "WAKE_WORD_DETECTED",
         "timestamp": int(time.time() * 1000),
@@ -342,13 +353,41 @@ def trigger_wake_event(phrase: str):
 
 def handle_client_connection(conn, addr):
     """Handles IPC client commands (Flutter UI / Backend API)."""
-    global mic_paused, mic_status, selected_mic_name
+    global mic_paused, mic_status, selected_mic_name, pending_wake_event, last_matched_phrase, last_activation_ts
+    log("[COLD TRACE] 4 Flutter client connected", "INFO")
+    log(f"[COLD TRACE] 4 pending_wake_event = {pending_wake_event}", "INFO")
+    log(f"[COLD WAKE {cold_wake_id:03d}] Flutter IPC client connected: {addr}", "INFO")
     log(f"IPC Client connected from {addr}", "INFO")
     with client_sockets_lock:
         client_sockets.append(conn)
 
+    # Deliver pending cold-start wake event to this newly connected client
+    log(f"[COLD WAKE {cold_wake_id:03d}] Pending wake event exists = {pending_wake_event}", "INFO")
+    delivered_wake_event = False
+    if pending_wake_event or (time.time() - last_activation_ts < 45.0 and mic_paused):
+        log(f"[COLD WAKE {cold_wake_id:03d}] Delivering pending WAKE_WORD_DETECTED to {addr}", "SUCCESS")
+        log(f"[WAKE TRACE] Sending WAKE_WORD_DETECTED to Flutter clients", "INFO")
+        log(f"[WAKE TRACE] Connected IPC clients: 1", "INFO")
+        event_data = {
+            "event": "WAKE_WORD_DETECTED",
+            "timestamp": int(time.time() * 1000),
+            "source": "wake_listener",
+            "phrase": last_matched_phrase
+        }
+        try:
+            log("[COLD TRACE] 5 Sending WAKE_WORD_DETECTED", "INFO")
+            conn.sendall((json.dumps(event_data) + "\n").encode('utf-8'))
+            log("[COLD TRACE] 6 WAKE_WORD_DETECTED send completed", "SUCCESS")
+            log(f"[COLD WAKE {cold_wake_id:03d}] WAKE_WORD_DETECTED sent successfully to {addr}", "SUCCESS")
+            log("[WAKE TRACE] WAKE_WORD_DETECTED sent successfully", "SUCCESS")
+            delivered_wake_event = True
+        except Exception as e:
+            log(f"[WAKE TRACE] Send error to client: {e}", "WARN")
+
     buffer = ""
     remaining_clients = 0
+    conn_start_ts = time.time()
+    is_command_client = False
     try:
         while True:
             data = conn.recv(1024)
@@ -360,6 +399,7 @@ def handle_client_connection(conn, addr):
                 line = line.strip()
                 if not line:
                     continue
+                is_command_client = True
                 log(f"IPC Received Command: {line}", "DEBUG")
                 try:
                     cmd_json = json.loads(line)
@@ -373,8 +413,13 @@ def handle_client_connection(conn, addr):
                     log("IPC command received: Microphone PAUSED (Handoff active)", "INFO")
                     conn.sendall(b'{"status":"OK","mic_paused":true}\n')
                 elif cmd in ["RESUME_MIC", "MIC_RESUME", "STATE:STANDBY"]:
-                    return_to_standby("IPC command received: Microphone RESUMED (Standby active)")
-                    conn.sendall(b'{"status":"OK","mic_paused":false}\n')
+                    if pending_wake_event:
+                        log(f"[COLD WAKE {cold_wake_id:03d}] MIC_RESUME received but pending wake event not yet delivered — keeping event alive, skipping return_to_standby()", "WARN")
+                        mic_paused = False
+                        conn.sendall(b'{"status":"OK","mic_paused":false,"pending_wake_preserved":true}\n')
+                    else:
+                        return_to_standby("IPC command received: Microphone RESUMED (Standby active)")
+                        conn.sendall(b'{"status":"OK","mic_paused":false}\n')
                 elif cmd in ["GET_STATUS", "STATUS"]:
                     status_report = {
                         "status": "OK",
@@ -406,8 +451,19 @@ def handle_client_connection(conn, addr):
         except Exception:
             pass
         log(f"IPC Client disconnected: {addr}", "INFO")
-        if remaining_clients == 0 and mic_paused and (time.time() - last_activation_ts >= 5.0) and not is_falcon_running():
-            return_to_standby("Falcon session ended (IPC client disconnected)")
+
+        # Determine whether this connection consumed the pending wake event or was just a short probe
+        if delivered_wake_event:
+            conn_duration = time.time() - conn_start_ts
+            if conn_duration < 0.5:
+                log(f"[COLD WAKE {cold_wake_id:03d}] Client {addr} was a short probe connection (duration: {conn_duration:.2f}s) — preserving pending_wake_event = True", "INFO")
+            else:
+                log(f"[COLD WAKE {cold_wake_id:03d}] Wake event successfully delivered to persistent Flutter UI client {addr} (duration: {conn_duration:.2f}s)", "SUCCESS")
+                pending_wake_event = False
+
+        # Use 60s grace period — enough for cold-start reconnect cycles without wiping pending events
+        if remaining_clients == 0 and mic_paused and (time.time() - last_activation_ts >= 60.0) and not is_falcon_running():
+            return_to_standby("Falcon session ended (IPC client disconnected after 60s)")
 
 
 def start_ipc_server():
