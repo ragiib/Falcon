@@ -77,6 +77,8 @@ class _FalconCoreState extends ConsumerState<FalconCore> with TickerProviderStat
       _rotationController.duration = const Duration(seconds: 4);
     } else if (aiState == AiState.thinking) {
       _rotationController.duration = const Duration(seconds: 3);
+    } else if (aiState == AiState.listening || aiState == AiState.recognizingSpeech) {
+      _rotationController.duration = const Duration(seconds: 5);
     } else {
       _rotationController.duration = const Duration(seconds: 16);
     }

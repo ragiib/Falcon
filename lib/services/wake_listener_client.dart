@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:ffi/ffi.dart';
 
 class WakeListenerClient {
   static final WakeListenerClient _instance = WakeListenerClient._internal();
@@ -70,10 +72,11 @@ class WakeListenerClient {
         debugPrint("[WAKE TRACE] Flutter received WAKE_WORD_DETECTED");
         debugPrint("[COLD WAKE 001] Flutter received WAKE_WORD_DETECTED: '$phrase'");
 
-        // Bring Falcon UI to foreground
+        // Bring Falcon UI to active foreground focus
         doWhenWindowReady(() {
           appWindow.restore();
           appWindow.show();
+          _forceWindowForeground();
         });
 
         debugPrint("[COLD TRACE] 9 Calling onWakeWordDetected");
@@ -83,6 +86,32 @@ class WakeListenerClient {
       }
     } catch (e) {
       debugPrint("[WakeListenerClient] JSON parse error: $e for line: $line");
+    }
+  }
+
+  void _forceWindowForeground() {
+    try {
+      final user32 = DynamicLibrary.open('user32.dll');
+      final findWindow = user32.lookupFunction<
+          IntPtr Function(Pointer<Utf16>, Pointer<Utf16>),
+          int Function(Pointer<Utf16>, Pointer<Utf16>)>('FindWindowW');
+      final setForeground = user32.lookupFunction<
+          Int32 Function(IntPtr),
+          int Function(int)>('SetForegroundWindow');
+      final showWindow = user32.lookupFunction<
+          Int32 Function(IntPtr, Int32),
+          int Function(int, int)>('ShowWindow');
+
+      final titlePtr = 'Falcon AI'.toNativeUtf16();
+      final hwnd = findWindow(nullptr, titlePtr);
+      calloc.free(titlePtr);
+
+      if (hwnd != 0) {
+        showWindow(hwnd, 9); // SW_RESTORE = 9
+        setForeground(hwnd);
+      }
+    } catch (e) {
+      debugPrint("[WakeListenerClient] Win32 focus error: $e");
     }
   }
 

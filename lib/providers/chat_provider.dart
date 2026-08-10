@@ -113,14 +113,21 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
 
     _sttService.onSpeechDetected = () {
       PipelineTiming.mark("6. Speech Detected (VAD active)");
+      _voiceController.notifyRecognizingSpeech();
     };
 
     _sttService.onEndOfSpeech = () {
       PipelineTiming.mark("7. End of Speech (Silence threshold reached)");
+      _voiceController.notifyRecognizingSpeech();
     };
 
     _sttService.onSttStarted = () {
       PipelineTiming.mark("8. STT Started (Whisper inference initiated)");
+      _voiceController.notifyRecognizingSpeech();
+    };
+
+    _sttService.onSttEmpty = () {
+      _voiceController.resetListeningTimer(seconds: 5);
     };
 
     // Bind Wake-Word Detection ("Falcon") -> Triggers activation sequence automatically
@@ -167,9 +174,11 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
         return;
       }
       if (currentAiState == AiState.listening ||
+          currentAiState == AiState.recognizingSpeech ||
           currentAiState == AiState.wakeWordDetection ||
           currentAiState == AiState.activated ||
-          currentAiState == AiState.greeting) {
+          currentAiState == AiState.greeting ||
+          currentAiState == AiState.returningToSleep) {
         _voiceController.notifyRecognizingSpeech();
         sendMessage(recognizedText);
       }

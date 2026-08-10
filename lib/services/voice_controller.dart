@@ -69,11 +69,23 @@ class VoiceController {
     });
   }
 
+  void resetListeningTimer({int seconds = 6}) {
+    _continuousListeningTimer?.cancel();
+    _mode = VoiceMode.listening;
+    onModeChanged?.call();
+    debugPrint("[VoiceController] STATUS: LISTENING TIMER RESET (${seconds}s window)");
+    _continuousListeningTimer = Timer(Duration(seconds: seconds), () {
+      if (_mode == VoiceMode.listening) {
+        _returnToSleep();
+      }
+    });
+  }
+
   void notifyRecognizingSpeech() {
     _continuousListeningTimer?.cancel();
     _mode = VoiceMode.recognizingSpeech;
     onModeChanged?.call();
-    debugPrint("[VoiceController] STATUS: RECOGNIZING SPEECH");
+    debugPrint("[VoiceController] STATUS: RECOGNIZING SPEECH (Continuous listening timer cancelled)");
   }
 
   void notifyProcessingRequest() {

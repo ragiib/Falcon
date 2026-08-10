@@ -274,83 +274,99 @@ Health Endpoint:       $HealthUrl
     }
 
     # ---------------------------------------------------------
-    # 7. Start Backend (with auto-recovery)
+    # 7. Start Backend (Single-Instance Management)
     # ---------------------------------------------------------
     $MaxBackendRestarts = 3
     $BackendRestartCount = 0
     $BackendProcess = $null
-    
-    function Start-BackendProcess {
-        Write-Log "Starting FastAPI backend..." "INFO"
-        if ($Mode -eq "Development") {
-            $BackendStartArgs = "-Command `"Set-Location -Path '$BackendDir'; & '$PythonCmd' -m api.app 2>&1 | Tee-Object -FilePath '$BackendLogFile'`""
-            $BackendProcess = Start-Process powershell.exe -ArgumentList $BackendStartArgs -PassThru
-        } else {
-            $BackendStartArgs = "-WindowStyle Hidden -Command `"Set-Location -Path '$BackendDir'; & '$PythonCmd' -m api.app 2>&1 > '$BackendLogFile'`""
-            $BackendProcess = Start-Process powershell.exe -ArgumentList $BackendStartArgs -PassThru -WindowStyle Hidden
-        }
-        Write-Log "Backend process started (PID: $($BackendProcess.Id))." "SUCCESS"
-        return $BackendProcess
+
+    function Stop-ExistingBackendProcesses {
+        try {
+            $procs = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { 
+                $_.CommandLine -like '*api.app*' -or $_.CommandLine -like '*uvicorn*' 
+            }
+            foreach ($p in $procs) {
+                Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue
+            }
+        } catch {}
     }
 
-    $BackendProcess = Start-BackendProcess
-
-    # ---------------------------------------------------------
-    # 8. Wait for Health Check
-    # ---------------------------------------------------------
-    function Wait-BackendHealth {
-        Write-Log "Waiting for backend health ($HealthUrl)..." "INFO"
-        $MaxRetries = 90 # 180 seconds
-        $RetryCount = 0
-        
-        while ($RetryCount -lt $MaxRetries) {
-            $attempt = $RetryCount + 1
-            Write-Log "Health Check Attempt ${attempt}..." "INFO"
-            try {
-                $response = Invoke-WebRequest -Uri $HealthUrl -UseBasicParsing -TimeoutSec 2 -ErrorAction Stop
-                $json = $response.Content | ConvertFrom-Json
-                
-                if ($json.success -eq $true) {
-                    Write-Log "Health Check Successful. Backend Ready." "SUCCESS"
-                    return $true
-                } else {
-                    Write-Log "Health Check returned 200 but success=false: $($response.Content)" "WARN"
-                }
-            } catch {
-                if ($_.Exception.Response) {
-                    $statusCode = $_.Exception.Response.StatusCode.value__
-                    try {
-                        $reader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
-                        $responseBody = $reader.ReadToEnd()
-                        Write-Log "Health Check Error: HTTP $statusCode - $responseBody" "WARN"
-                    } catch {
-                        Write-Log "Health Check Error: HTTP $statusCode" "WARN"
-                    }
-                } else {
-                    Write-Log "Health Check Failed: $($_.Exception.Message)" "WARN"
-                }
-            }
-            
-            if ($BackendProcess.HasExited) {
-                Write-Log "Backend process crashed during health check." "FAILURE"
-                return $false
-            }
-            
-            Start-Sleep -Seconds 2
-            $RetryCount++
+    # Check if backend is ALREADY running and healthy
+    $AlreadyHealthy = $false
+    try {
+        $resp = Invoke-WebRequest -Uri $HealthUrl -UseBasicParsing -TimeoutSec 2 -ErrorAction Stop
+        $jsonObj = $resp.Content | ConvertFrom-Json
+        if ($jsonObj.success -eq $true) {
+            $AlreadyHealthy = $true
         }
-        return $false
-    }
-    
-    $BackendReady = Wait-BackendHealth
-    
-    while (-not $BackendReady -and $BackendRestartCount -lt $MaxBackendRestarts) {
-        $BackendRestartCount++
-        Write-Log "Backend failed to start. Initiating recovery attempt $BackendRestartCount of $MaxBackendRestarts..." "WARN"
-        Start-Sleep -Seconds 3
-        
+    } catch {}
+
+    if ($AlreadyHealthy) {
+        Write-Log "Backend API is already running and healthy at $HealthUrl." "SUCCESS"
+        $BackendReady = $true
+    } else {
+        function Start-BackendProcess {
+            Stop-ExistingBackendProcesses
+            Start-Sleep -Milliseconds 500
+            Write-Log "Starting FastAPI backend (single instance)..." "INFO"
+            if ($Mode -eq "Development") {
+                $BackendStartArgs = "-Command `"Set-Location -Path '$BackendDir'; & '$PythonCmd' -m api.app 2>&1 | Tee-Object -FilePath '$BackendLogFile'`""
+                $bp = Start-Process powershell.exe -ArgumentList $BackendStartArgs -PassThru
+            } else {
+                $BackendStartArgs = "-WindowStyle Hidden -Command `"Set-Location -Path '$BackendDir'; & '$PythonCmd' -m api.app 2>&1 > '$BackendLogFile'`""
+                $bp = Start-Process powershell.exe -ArgumentList $BackendStartArgs -PassThru -WindowStyle Hidden
+            }
+            Write-Log "Backend process started (PID: $($bp.Id))." "SUCCESS"
+            return $bp
+        }
+
         $BackendProcess = Start-BackendProcess
+
+        # ---------------------------------------------------------
+        # 8. Wait for Health Check
+        # ---------------------------------------------------------
+        function Wait-BackendHealth {
+            Write-Log "Waiting for backend health ($HealthUrl)..." "INFO"
+            $MaxRetries = 90 # 180 seconds
+            $RetryCount = 0
+            
+            while ($RetryCount -lt $MaxRetries) {
+                $attempt = $RetryCount + 1
+                try {
+                    $response = Invoke-WebRequest -Uri $HealthUrl -UseBasicParsing -TimeoutSec 2 -ErrorAction Stop
+                    $json = $response.Content | ConvertFrom-Json
+                    
+                    if ($json.success -eq $true) {
+                        Write-Log "Health Check Successful. Backend Ready." "SUCCESS"
+                        return $true
+                    }
+                } catch {
+                    if ($attempt % 5 -eq 1) {
+                        Write-Log "Health Check Attempt ${attempt}... waiting for startup" "INFO"
+                    }
+                }
+                
+                if ($BackendProcess -and $BackendProcess.HasExited) {
+                    Write-Log "Backend process exited during health check." "FAILURE"
+                    return $false
+                }
+                
+                Start-Sleep -Seconds 2
+                $RetryCount++
+            }
+            return $false
+        }
+
         $BackendReady = Wait-BackendHealth
+
+        while (-not $BackendReady -and $BackendRestartCount -lt $MaxBackendRestarts) {
+            $BackendRestartCount++
+            Write-Log "Backend failed to respond. Initiating recovery attempt $BackendRestartCount of $MaxBackendRestarts..." "WARN"
+            Start-Sleep -Seconds 3
+            
+            $BackendProcess = Start-BackendProcess
+            $BackendReady = Wait-BackendHealth
+        }
     }
     
     if (-not $BackendReady) {

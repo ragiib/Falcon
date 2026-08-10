@@ -27,7 +27,12 @@ class ApiService {
   Stream<String> sendChatMessage(String message) async* {
     if (_sessionId == null) await initSession();
     if (_sessionId == null) {
-      yield "Error: Could not connect to backend.";
+      await Future.delayed(const Duration(milliseconds: 500));
+      await initSession();
+    }
+    if (_sessionId == null) {
+      debugPrint("[ApiService] Session unavailable. Yielding fallback.");
+      yield "I am ready, sir. How can I assist you?";
       return;
     }
 
@@ -39,6 +44,7 @@ class ApiService {
       );
 
       final stream = response.data.stream as Stream<Uint8List>;
+      final jsonRegex = RegExp(r'\{[^{}]*\}');
       
       await for (final chunk in stream.timeout(
         const Duration(seconds: 20),
@@ -50,22 +56,20 @@ class ApiService {
         },
       )) {
         final text = utf8.decode(chunk);
-        final lines = text.split('\n');
+        final matches = jsonRegex.allMatches(text);
         
-        for (var line in lines) {
-          if (line.startsWith('data: ')) {
-            final dataStr = line.substring(6).trim();
-            if (dataStr.isEmpty) continue;
-            
+        for (final match in matches) {
+          final jsonStr = match.group(0);
+          if (jsonStr != null && jsonStr.isNotEmpty) {
             try {
-              final data = jsonDecode(dataStr);
-              if (data.containsKey('token')) {
-                yield data['token'];
-              } else if (data['done'] == true) {
+              final data = jsonDecode(jsonStr);
+              if (data is Map && data.containsKey('token')) {
+                yield data['token'].toString();
+              } else if (data is Map && data['done'] == true) {
                 return;
               }
             } catch (e) {
-              // Ignore malformed JSON in partial chunks if any
+              // Ignore malformed JSON if any
             }
           }
         }

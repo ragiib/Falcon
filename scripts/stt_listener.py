@@ -7,8 +7,8 @@ import traceback
 import threading
 import numpy as np
 
-# Force UTF-8 encoding for stdout
-sys.stdout.reconfigure(encoding='utf-8')
+# Force UTF-8 encoding and line buffering for stdout pipe
+sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 LOG_FILE = r"c:\falcon\logs\stt_py.log"
 MODEL_DIR = r"c:\falcon\models\stt"
@@ -91,41 +91,49 @@ model = None
 device_used = "cuda"
 compute_type_used = "float16"
 
-cuda_available = True
-try:
-    log(f"Attempting to load Faster-Whisper Base.en ({MODEL_TARGET}) on GPU (CUDA float16)...")
-    m = WhisperModel(
-        MODEL_TARGET,
-        device="cuda",
-        compute_type="float16",
-        download_root=MODEL_DIR
-    )
-    verify_model_transcribe(m)
-    model = m
-    log("Successfully initialized and verified Faster-Whisper Base.en on GPU (CUDA float16).")
-except Exception as cuda_err:
-    log(f"GPU CUDA float16 load/warmup failed: {cuda_err}")
-    err_str = str(cuda_err).lower()
-    if "cublas" in err_str or "cudnn" in err_str or "not found" in err_str or "cuda" in err_str:
-        log("CUDA library error detected. Skipping GPU retries and falling directly back to CPU.")
-        cuda_available = False
+CUDA_DISABLE_MARKER = r"c:\falcon\models\stt\.cuda_disabled"
+cuda_available = not os.path.exists(CUDA_DISABLE_MARKER)
 
-    if cuda_available:
-        try:
-            log("Retrying on GPU (CUDA int8_float16)...")
-            m = WhisperModel(
-                MODEL_TARGET,
-                device="cuda",
-                compute_type="int8_float16",
-                download_root=MODEL_DIR
-            )
-            verify_model_transcribe(m)
-            model = m
-            compute_type_used = "int8_float16"
-            log("Successfully initialized and verified Faster-Whisper Base.en on GPU (CUDA int8_float16).")
-        except Exception as cuda_err2:
-            log(f"GPU CUDA int8_float16 load/warmup failed: {cuda_err2}")
+if cuda_available:
+    try:
+        log(f"Attempting to load Faster-Whisper Base.en ({MODEL_TARGET}) on GPU (CUDA float16)...")
+        m = WhisperModel(
+            MODEL_TARGET,
+            device="cuda",
+            compute_type="float16",
+            download_root=MODEL_DIR
+        )
+        verify_model_transcribe(m)
+        model = m
+        log("Successfully initialized and verified Faster-Whisper Base.en on GPU (CUDA float16).")
+    except Exception as cuda_err:
+        log(f"GPU CUDA float16 load/warmup failed: {cuda_err}")
+        err_str = str(cuda_err).lower()
+        if "cublas" in err_str or "cudnn" in err_str or "not found" in err_str or "cuda" in err_str:
+            log("CUDA library error detected. Caching CPU preference to prevent startup delay.")
+            try:
+                with open(CUDA_DISABLE_MARKER, "w") as f:
+                    f.write("disabled")
+            except Exception:
+                pass
             cuda_available = False
+
+        if cuda_available:
+            try:
+                log("Retrying on GPU (CUDA int8_float16)...")
+                m = WhisperModel(
+                    MODEL_TARGET,
+                    device="cuda",
+                    compute_type="int8_float16",
+                    download_root=MODEL_DIR
+                )
+                verify_model_transcribe(m)
+                model = m
+                compute_type_used = "int8_float16"
+                log("Successfully initialized and verified Faster-Whisper Base.en on GPU (CUDA int8_float16).")
+            except Exception as cuda_err2:
+                log(f"GPU CUDA int8_float16 load/warmup failed: {cuda_err2}")
+                cuda_available = False
 
 if model is None:
     log("Falling back to CPU (int8, 4 threads)...")
@@ -275,6 +283,8 @@ def process_audio_segment(audio_np, speech_start_ts):
 
         if not full_text:
             log("[Stage 8] Transcript is empty — no speech content. Skipping.")
+            print("TIMING:STT_EMPTY", flush=True)
+            sys.stdout.flush()
             return
 
         total_latency_ms = (time.perf_counter() - speech_start_ts) * 1000.0
@@ -330,9 +340,11 @@ def process_audio_segment(audio_np, speech_start_ts):
             if len(remainder.split()) >= 1 and len(remainder) > 2:
                 log(f"[Stage 12] Extra speech after wake word: '{remainder}'")
                 print(f"RECOGNIZED:{remainder}", flush=True)
+                sys.stdout.flush()
         else:
             log(f"[Stage 11] Sending as regular speech: '{full_text}'")
             print(f"RECOGNIZED:{full_text}", flush=True)
+            sys.stdout.flush()
 
         log(f"EXIT: processAudioSegment()")
 

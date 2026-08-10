@@ -54,21 +54,36 @@ class SpeechService {
     _tokenBuffer.write(token);
     final text = _tokenBuffer.toString();
 
-    // Sentence boundary detection (. ! ? or newline)
-    final RegExp sentenceRegex = RegExp(r'([^.!?\n]+[.!?\n]+)');
-    final matches = sentenceRegex.allMatches(text);
+    // Sentence or clause boundary detection (. ! ? \n or comma/semicolon when chunk has >= 3 words)
+    final RegExp boundaryRegex = RegExp(r'([^.!?\n,;]+[.!?\n,;]+)');
+    final matches = boundaryRegex.allMatches(text);
 
     if (matches.isNotEmpty) {
       int lastMatchEnd = 0;
       for (final match in matches) {
-        final sentence = match.group(0)?.trim();
-        if (sentence != null && sentence.isNotEmpty) {
-          enqueueSpeech(sentence);
+        final chunk = match.group(0)?.trim();
+        if (chunk != null && chunk.isNotEmpty) {
+          // If chunk ends with a comma, require at least 3 words to avoid tiny fragments
+          if (chunk.endsWith(',') && chunk.split(' ').length < 3) {
+            continue;
+          }
+          enqueueSpeech(chunk);
+          lastMatchEnd = match.end;
         }
-        lastMatchEnd = match.end;
       }
-      final remaining = text.substring(lastMatchEnd);
-      _tokenBuffer = StringBuffer(remaining);
+      if (lastMatchEnd > 0) {
+        final remaining = text.substring(lastMatchEnd);
+        _tokenBuffer = StringBuffer(remaining);
+      }
+    } else {
+      // Fallback: If buffer has accumulated >= 10 words without any punctuation, chunk it at word boundary
+      final words = text.trim().split(RegExp(r'\s+'));
+      if (words.length >= 10) {
+        final chunk = words.take(8).join(' ');
+        enqueueSpeech(chunk);
+        final remaining = words.skip(8).join(' ');
+        _tokenBuffer = StringBuffer(remaining);
+      }
     }
   }
 

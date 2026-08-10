@@ -35,13 +35,13 @@ class AudioAmplitudeNotifier extends StateNotifier<double> {
         } else {
           _target = _target * 0.45; // Smooth audio decay
         }
-      } else if (aiState == AiState.listening) {
-        // User Speaking into Mic: Live microphone audio volume drives Falcon Core bouncing in real time!
+      } else if (aiState == AiState.listening || aiState == AiState.recognizingSpeech || aiState == AiState.activated) {
+        // User Speaking into Mic / Speech Recognition Active: Live mic volume + pulsing bounce animation!
         if (_micVolumeInput > 0.05) {
-          _target = _micVolumeInput * 0.9 + 0.1;
+          _target = (_micVolumeInput * 1.5).clamp(0.2, 1.0);
         } else {
-          // Ambient breathing wave while waiting for user speech
-          _target = (math.sin(DateTime.now().millisecondsSinceEpoch / 400) + 1) / 2 * 0.35 + 0.05;
+          // Energetic bouncing wave during speech capture & recognition
+          _target = (math.sin(DateTime.now().millisecondsSinceEpoch / 180) + 1) / 2 * 0.5 + 0.15;
         }
       } else if (aiState == AiState.generating || aiState == AiState.thinking) {
         // Generating/Thinking: Pulsing core excitation

@@ -24,6 +24,14 @@ class SttService {
   final List<Function(double)> _volumeUpdatedListeners = [];
 
   Future<bool> checkAndRequestPermission() async {
+    // Win32 applications on Windows access audio directly via WASAPI / PortAudio drivers.
+    // Calling permission_handler on Windows desktop queries WinRT UWP capabilities,
+    // which can alter Windows privacy settings when the application process terminates.
+    if (Platform.isWindows) {
+      _permissionGranted = true;
+      return true;
+    }
+
     try {
       var status = await Permission.microphone.status;
       debugPrint("[STT Service] Initial Microphone Permission Status: $status");
@@ -137,6 +145,7 @@ class SttService {
   VoidCallback? onSpeechDetected;
   VoidCallback? onEndOfSpeech;
   VoidCallback? onSttStarted;
+  VoidCallback? onSttEmpty;
 
   double lastInferenceMs = 0.0;
   double lastAudioMs = 0.0;
@@ -159,6 +168,8 @@ class SttService {
       onEndOfSpeech?.call();
     } else if (line == 'TIMING:STT_STARTED') {
       onSttStarted?.call();
+    } else if (line == 'TIMING:STT_EMPTY') {
+      onSttEmpty?.call();
     } else if (line.startsWith('TIMING:METRICS:')) {
       final parts = line.split(':');
       if (parts.length >= 5) {

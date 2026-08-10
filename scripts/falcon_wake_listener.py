@@ -292,6 +292,19 @@ def broadcast_ipc_event(event_dict: dict):
                 except Exception:
                     pass
 
+def bring_falcon_to_foreground():
+    """Forces Windows OS to restore and bring Falcon UI window to active foreground focus."""
+    try:
+        import ctypes
+        user32 = ctypes.windll.user32
+        hwnd = user32.FindWindowW(None, "Falcon AI")
+        if hwnd:
+            user32.ShowWindow(hwnd, 9)  # SW_RESTORE = 9
+            user32.SetForegroundWindow(hwnd)
+            log("Falcon UI window brought to active foreground focus.", "SUCCESS")
+    except Exception as e:
+        log(f"Foreground focus exception: {e}", "DEBUG")
+
 def trigger_wake_event(phrase: str):
     """Executes activation handshake: releases mic, notifies IPC clients & API endpoint."""
     global mic_paused, last_activation_ts, pending_wake_event, last_matched_phrase, cold_wake_id
@@ -304,6 +317,9 @@ def trigger_wake_event(phrase: str):
 
     transition_to("WAKE_DETECTED")
     transition_to("ACTIVATING")
+
+    # Force window to foreground focus
+    bring_falcon_to_foreground()
 
     if WAKE_TEST_MODE:
         log(f"[WAKE TEST MODE] WAKE EVENT TRIGGERED! Matched phrase: '{phrase}' (Falcon launch suppressed)", "SUCCESS")
